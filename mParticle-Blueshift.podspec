@@ -17,8 +17,8 @@ Pod::Spec.new do |s|
   s.ios.deployment_target = "9.0"
   s.source       = { :git => "https://github.com/blueshift-labs/BlueShift-iOS-SDK.git", :tag => "2.0.6" }
   s.exclude_files = "Classes/Exclude"
-  s.ios.source_files = 'Blueshift-mParticle-Kit/*.{h,m}'
+  s.ios.source_files = 'mParticle-Blueshift/*.{h,m}'
   s.ios.dependency 'mParticle-Apple-SDK', '~> 7.7.0'
   s.ios.dependency 'BlueShift-iOS-SDK', '~> 2.0.6'
-
-  end
+  
+end

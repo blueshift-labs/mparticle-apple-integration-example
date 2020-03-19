@@ -19,4 +19,21 @@
     [MParticle registerExtension:kitRegister];
 }
 
+- (MPKitExecStatus *)didFinishLaunchingWithConfiguration:(NSDictionary *)configuration {
+    NSString *apiKey = configuration[@"<dictionary key to retrieve API Key>"];
+    if (!apiKey) {
+        return [self execStatus:MPKitReturnCodeRequirementsNotMet];
+    }
+
+    _configuration = configuration;
+
+    [self start];
+
+    return [self execStatus:MPKitReturnCodeSuccess];
+}
+
+- (MPKitExecStatus *)execStatus:(MPKitReturnCode)returnCode {
+    return [[MPKitExecStatus alloc] initWithSDKCode:self.class.kitCode returnCode:returnCode];
+}
+
 @end
