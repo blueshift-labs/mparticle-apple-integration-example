@@ -13,6 +13,14 @@
 #import "mParticle.h"
 #endif
 
+#if defined(__has_include) && __has_include(<Appboy-iOS-SDK/AppboyKit.h>)
+    #import <BlueShift-iOS-SDK/BlueShift.h>
+#elif defined(__has_include) && __has_include(<Appboy_iOS_SDK/AppboyKit.h>)
+    #import <BlueShift_iOS_SDK/BlueShift.h>
+#else
+    #import "BlueShift.h"
+#endif
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface MPKItBlueshift : NSObject <MPKitProtocol>
@@ -20,6 +28,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, nonnull) NSDictionary *configuration;
 @property (nonatomic, strong, nullable) NSDictionary *launchOptions;
 @property (nonatomic, unsafe_unretained, readonly) BOOL started;
+
++ (void)setInAppMessageControllerDelegate:(id)delegate;
++ (void)setPushNotificationControllerDelegate:(id)delegate;
 
 @end
 
