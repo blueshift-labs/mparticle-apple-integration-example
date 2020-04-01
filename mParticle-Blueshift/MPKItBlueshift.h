@@ -31,6 +31,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (void)setInAppMessageControllerDelegate:(id)delegate;
 + (void)setPushNotificationControllerDelegate:(id)delegate;
+- (void)initializeBlueshiftConfig:(NSDictionary *)configDictionary;
+- (void)registerForInAppMessage:(NSString *)displayPage;
+- (void)unregisterForInAppMessage;
+- (void)fetchInAppNotificationFromAPI:(void (^_Nonnull)(void))success failure:(void (^)(NSError*))failure;
+- (void)displayInAppNotification;
 
 @end
 

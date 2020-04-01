@@ -59,33 +59,55 @@ __weak static id<BlueShiftPushDelegate> pushNotificationControllerDelegate = nil
     return pushNotificationControllerDelegate;
 }
 
+- (void)registerForInAppMessage:(NSString *)displayPage {
+    [self->blueshiftInstance registerForInAppMessage:displayPage];
+}
+
+- (void)unregisterForInAppMessage {
+    [self->blueshiftInstance unregisterForInAppMessage];
+}
+
+- (void)fetchInAppNotificationFromAPI:(void (^_Nonnull)(void))success failure:(void (^)(NSError*))failure {
+    [self->blueshiftInstance fetchInAppNotificationFromAPI:^(void) {
+        success();
+        } failure:^(NSError *error){
+            failure(error);
+    }];
+}
+
+- (void)displayInAppNotification {
+    [self->blueshiftInstance displayInAppNotification];
+}
+
 - (MPKitExecStatus *)didFinishLaunchingWithConfiguration:(NSDictionary *)configuration {
     if (!configuration[apiKey]) {
         return [self execStatus:MPKitReturnCodeRequirementsNotMet];
     }
 
     _configuration = configuration;
-    _started = NO;
+
+    [self start];
 
     return [self execStatus:MPKitReturnCodeSuccess];;
 }
 
-- (id const)providerKitInstance {
-    return [self started] ? blueshiftInstance : nil;
+- (void)start {
+    static dispatch_once_t kitPredicate;
+
+    dispatch_once(&kitPredicate, ^{
+        self->_started = YES;
+
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSDictionary *userInfo = @{mParticleKitInstanceKey:[[self class] kitCode]};
+            [[NSNotificationCenter defaultCenter] postNotificationName:mParticleKitDidBecomeActiveNotification
+                                                                object:nil
+                                                              userInfo:userInfo];
+        });
+    });
 }
 
-- (void)start {
-    static dispatch_once_t blueshiftPredicate;
-    
-    dispatch_once(&blueshiftPredicate, ^{
-        
-        [self initializeBlueshiftConfig: _configuration];
-        
-        if (!blueshiftInstance ) {
-            return;
-        }
-    });
-    
+- (id const)providerKitInstance {
+    return [self started] ? blueshiftInstance : nil;
 }
 
 - (MPKitExecStatus *)execStatus:(MPKitReturnCode)returnCode {
