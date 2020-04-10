@@ -5,7 +5,7 @@
 //  Created by Noufal on 17/03/20.
 //  Copyright © 2020 Noufal. All rights reserved.
 //
-#import "MPKItBlueshift.h"
+#import "MPKitBlueshift.h"
 
 static NSString *const apiKey = @"apiKey";
 static NSString *const appGroup = @"appGroup";
@@ -17,29 +17,17 @@ static NSString *const inAppTimeInterval = @"inAppTimeInterval";
 
 __weak static id<BlueShiftInAppNotificationDelegate> inAppMessageControllerDelegate = nil;
 __weak static id<BlueShiftPushDelegate> pushNotificationControllerDelegate = nil;
+__weak static NSDictionary *blueshiftConfiguration = nil;
 
-@interface MPKItBlueshift() {
-    BlueShift *blueshiftInstance;
-}
 
-@end
-
-@implementation MPKItBlueshift
+@implementation MPKitBlueshift
 
 + (NSNumber *)kitCode {
-    return @123;
-}
-
-- (BlueShift *)appboyInstance {
-    return self->blueshiftInstance;
-}
-
-- (void)setAppboyInstance:(BlueShift *)instance {
-    self->blueshiftInstance = instance;
+    return @1144;
 }
 
 + (void)load {
-    MPKitRegister *kitRegister = [[MPKitRegister alloc] initWithName:@"Blueshift" className:@"MPKItBlueshift"];
+    MPKitRegister *kitRegister = [[MPKitRegister alloc] initWithName:@"Blueshift" className:@"MPKitBlueshift"];
     [MParticle registerExtension:kitRegister];
 }
 
@@ -59,34 +47,46 @@ __weak static id<BlueShiftPushDelegate> pushNotificationControllerDelegate = nil
     return pushNotificationControllerDelegate;
 }
 
-- (void)registerForInAppMessage:(NSString *)displayPage {
-    [self->blueshiftInstance registerForInAppMessage:displayPage];
++ (void)registerForInAppMessage:(NSString *)displayPage {
+    [[BlueShift sharedInstance] registerForInAppMessage:displayPage];
 }
 
-- (void)unregisterForInAppMessage {
-    [self->blueshiftInstance unregisterForInAppMessage];
++ (void)unregisterForInAppMessage {
+    [[BlueShift sharedInstance] unregisterForInAppMessage];
 }
 
-- (void)fetchInAppNotificationFromAPI:(void (^_Nonnull)(void))success failure:(void (^)(NSError*))failure {
-    [self->blueshiftInstance fetchInAppNotificationFromAPI:^(void) {
++ (void)fetchInAppNotificationFromAPI:(void (^_Nonnull)(void))success failure:(void (^)(NSError*))failure {
+    [[BlueShift sharedInstance] fetchInAppNotificationFromAPI:^(void) {
         success();
         } failure:^(NSError *error){
             failure(error);
     }];
 }
 
-- (void)displayInAppNotification {
-    [self->blueshiftInstance displayInAppNotification];
++ (void)displayInAppNotification {
+    [[BlueShift sharedInstance] displayInAppNotification];
+}
+
++ (void)setupDeepLinks:(NSURL *)URL handler:(void (^)(NSURL *))handler {
+    [[BlueShift sharedInstance] setupDeepLinks:URL handler:^(NSURL *URL) {
+        handler(URL);
+    }];
 }
 
 - (MPKitExecStatus *)didFinishLaunchingWithConfiguration:(NSDictionary *)configuration {
     if (!configuration[apiKey]) {
         return [self execStatus:MPKitReturnCodeRequirementsNotMet];
     }
+    
+    NSLog(@"%@", configuration);
 
     _configuration = configuration;
 
-    [self start];
+   if ([BlueShift sharedInstance]) {
+        [self start];
+    } else {
+        _started = NO;
+    }
 
     return [self execStatus:MPKitReturnCodeSuccess];;
 }
@@ -97,6 +97,10 @@ __weak static id<BlueShiftPushDelegate> pushNotificationControllerDelegate = nil
     dispatch_once(&kitPredicate, ^{
         self->_started = YES;
 
+       if ([BlueShift sharedInstance]) {
+            return;
+        }
+        
         dispatch_async(dispatch_get_main_queue(), ^{
             NSDictionary *userInfo = @{mParticleKitInstanceKey:[[self class] kitCode]};
             [[NSNotificationCenter defaultCenter] postNotificationName:mParticleKitDidBecomeActiveNotification
@@ -107,7 +111,7 @@ __weak static id<BlueShiftPushDelegate> pushNotificationControllerDelegate = nil
 }
 
 - (id const)providerKitInstance {
-    return [self started] ? blueshiftInstance : nil;
+    return [self started] ? [BlueShift sharedInstance] : nil;
 }
 
 - (MPKitExecStatus *)execStatus:(MPKitReturnCode)returnCode {
@@ -115,32 +119,36 @@ __weak static id<BlueShiftPushDelegate> pushNotificationControllerDelegate = nil
 }
 
 -(MPKitExecStatus *)setDeviceToken:(NSData *)deviceToken {
-    [self->blueshiftInstance.appDelegate registerForRemoteNotification:deviceToken];
+    [[BlueShift sharedInstance].appDelegate registerForRemoteNotification:deviceToken];
     
     return [self execStatus:MPKitReturnCodeSuccess];
 }
 
 -(MPKitExecStatus *)receivedUserNotification:(NSDictionary *)userInfo {
-    [self->blueshiftInstance.appDelegate handleRemoteNotification: userInfo];
+    [[BlueShift sharedInstance].appDelegate handleRemoteNotification: userInfo];
     
     return [self execStatus:MPKitReturnCodeSuccess];
 }
 
 -(MPKitExecStatus *)handleActionWithIdentifier:(NSString *)identifier forRemoteNotification:(NSDictionary *)userInfo {
     
-    [self->blueshiftInstance.appDelegate handleActionWithIdentifier:identifier forRemoteNotification:userInfo completionHandler:^{}];
+    [[BlueShift sharedInstance].appDelegate handleActionWithIdentifier:identifier forRemoteNotification:userInfo completionHandler:^{}];
     
    return [self execStatus:MPKitReturnCodeSuccess];
 }
 
-- (void)initializeBlueshiftConfig:(NSDictionary *)configDictionary{
++ (void)initializeBlueshiftConfig:(NSDictionary *)configDictionary {
+    blueshiftConfiguration = configDictionary;
+}
+
+- (BlueShiftConfig *)fetchBlueshiftConfig:(NSDictionary *)configDictionary{
     BlueShiftConfig *config = [BlueShiftConfig config];
     
     if ([configDictionary objectForKey: apiKey] && [configDictionary objectForKey: apiKey] != [NSNull null]) {
         [config setApiKey: [configDictionary objectForKey: apiKey]];
     }
     
-    [config setApplicationLaunchOptions: self.launchOptions];
+   // [config setApplicationLaunchOptions: self.launchOptions];
     
     if ([configDictionary objectForKey: appGroup] && [configDictionary objectForKey: appGroup] != [NSNull null]) {
         [config setAppGroupID:[configDictionary objectForKey: appGroup]];
@@ -166,15 +174,15 @@ __weak static id<BlueShiftPushDelegate> pushNotificationControllerDelegate = nil
         [config setBlueshiftInAppNotificationTimeInterval:[[configDictionary objectForKey: inAppTimeInterval] doubleValue]];
     }
     
-    if ([MPKItBlueshift pushNotificationControllerDelegate]) {
-        [config setBlueShiftPushDelegate:[MPKItBlueshift pushNotificationControllerDelegate]];
+    if ([MPKitBlueshift pushNotificationControllerDelegate]) {
+        [config setBlueShiftPushDelegate:[MPKitBlueshift pushNotificationControllerDelegate]];
     }
     
-    if ([MPKItBlueshift inAppMessageControllerDelegate]) {
-        [config setInAppNotificationDelegate: [MPKItBlueshift inAppMessageControllerDelegate]];
+    if ([MPKitBlueshift inAppMessageControllerDelegate]) {
+        [config setInAppNotificationDelegate: [MPKitBlueshift inAppMessageControllerDelegate]];
     }
     
-    [BlueShift initWithConfiguration: config];
+    return config;
 }
 
 @end

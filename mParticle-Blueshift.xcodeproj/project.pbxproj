@@ -7,14 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		083C99072420F65D00C5DE86 /* MPKItBlueshift.h in Headers */ = {isa = PBXBuildFile; fileRef = 083C99052420F65D00C5DE86 /* MPKItBlueshift.h */; };
-		083C99082420F65D00C5DE86 /* MPKItBlueshift.m in Sources */ = {isa = PBXBuildFile; fileRef = 083C99062420F65D00C5DE86 /* MPKItBlueshift.m */; };
+		085E9F15243F3BC2007F96DA /* MPKitBlueshift.h in Headers */ = {isa = PBXBuildFile; fileRef = 085E9F13243F3BC2007F96DA /* MPKitBlueshift.h */; };
+		085E9F16243F3BC2007F96DA /* MPKitBlueshift.m in Sources */ = {isa = PBXBuildFile; fileRef = 085E9F14243F3BC2007F96DA /* MPKitBlueshift.m */; };
 		0897C81A241FA136000DBCB3 /* Blueshift_mParticle_Kit.h in Headers */ = {isa = PBXBuildFile; fileRef = 0897C818241FA136000DBCB3 /* Blueshift_mParticle_Kit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		083C99052420F65D00C5DE86 /* MPKItBlueshift.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MPKItBlueshift.h; sourceTree = "<group>"; };
-		083C99062420F65D00C5DE86 /* MPKItBlueshift.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MPKItBlueshift.m; sourceTree = "<group>"; };
+		085E9F13243F3BC2007F96DA /* MPKitBlueshift.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = MPKitBlueshift.h; path = "mParticle-Blueshift/MPKitBlueshift.h"; sourceTree = SOURCE_ROOT; };
+		085E9F14243F3BC2007F96DA /* MPKitBlueshift.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = MPKitBlueshift.m; path = "mParticle-Blueshift/MPKitBlueshift.m"; sourceTree = SOURCE_ROOT; };
 		0897C815241FA136000DBCB3 /* Blueshift_mParticle_Kit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Blueshift_mParticle_Kit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0897C818241FA136000DBCB3 /* Blueshift_mParticle_Kit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Blueshift_mParticle_Kit.h; sourceTree = "<group>"; };
 		0897C819241FA136000DBCB3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -52,8 +52,8 @@
 			children = (
 				0897C818241FA136000DBCB3 /* Blueshift_mParticle_Kit.h */,
 				0897C819241FA136000DBCB3 /* Info.plist */,
-				083C99052420F65D00C5DE86 /* MPKItBlueshift.h */,
-				083C99062420F65D00C5DE86 /* MPKItBlueshift.m */,
+				085E9F13243F3BC2007F96DA /* MPKitBlueshift.h */,
+				085E9F14243F3BC2007F96DA /* MPKitBlueshift.m */,
 			);
 			path = "Blueshift-mParticle-Kit";
 			sourceTree = "<group>";
@@ -66,7 +66,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0897C81A241FA136000DBCB3 /* Blueshift_mParticle_Kit.h in Headers */,
-				083C99072420F65D00C5DE86 /* MPKItBlueshift.h in Headers */,
+				085E9F15243F3BC2007F96DA /* MPKitBlueshift.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -105,7 +105,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 0897C80F241FA136000DBCB3 /* Build configuration list for PBXProject "Blueshift-mParticle-Kit" */;
+			buildConfigurationList = 0897C80F241FA136000DBCB3 /* Build configuration list for PBXProject "mParticle-Blueshift" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -138,7 +138,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				083C99082420F65D00C5DE86 /* MPKItBlueshift.m in Sources */,
+				085E9F16243F3BC2007F96DA /* MPKitBlueshift.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -312,7 +312,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		0897C80F241FA136000DBCB3 /* Build configuration list for PBXProject "Blueshift-mParticle-Kit" */ = {
+		0897C80F241FA136000DBCB3 /* Build configuration list for PBXProject "mParticle-Blueshift" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				0897C81B241FA136000DBCB3 /* Debug */,

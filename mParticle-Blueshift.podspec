@@ -19,6 +19,7 @@ Pod::Spec.new do |s|
   s.exclude_files = "Classes/Exclude"
   s.ios.source_files = 'mParticle-Blueshift/*.{h,m}'
   s.ios.dependency 'mParticle-Apple-SDK', '~> 7.7.0'
-  s.ios.dependency 'BlueShift-iOS-SDK', '~> 2.0.6'
+  s.ios.frameworks = 'CoreTelephony', 'SystemConfiguration'
+  s.ios.dependency 'BlueShift-iOS-SDK', '~> 2.0.7'
   
 end
