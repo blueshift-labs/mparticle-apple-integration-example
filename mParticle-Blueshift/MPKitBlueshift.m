@@ -7,13 +7,11 @@
 //
 #import "MPKitBlueshift.h"
 
-static NSString *const apiKey = @"apiKey";
-NSString *const MPKitBlueshiftUserAttributeCustomerID = @"customer_id";
-NSString *const MPKitBlueshiftUserAttributeEmail = @"email";
+static NSString *const eabAPIKey = @"eventApiKey";
 NSString *const MPKitBlueshifUserAttributesDOB = @"date_of_birth";
 NSString *const MPKitBlueshifUserAttributesJoinedAt = @"joined_at";
-NSString *const MPKitBlueshifUserAttributesFacebookID = @"facebook_id";
 NSString *const MPKitBlueshifUserAttributesEducation = @"education";
+NSString *const MPKITBlueshiftScreenViewwd = @"screen_viewed";
 
 __weak static BlueShiftConfig *blueshiftConfig = nil;
 
@@ -68,7 +66,7 @@ __weak static BlueShiftConfig *blueshiftConfig = nil;
 }
 
 - (MPKitExecStatus *)didFinishLaunchingWithConfiguration:(NSDictionary *)configuration {
-    if (!configuration[apiKey]) {
+    if (!configuration[eabAPIKey]) {
         return [self execStatus:MPKitReturnCodeRequirementsNotMet];
     }
     
@@ -163,16 +161,35 @@ __weak static BlueShiftConfig *blueshiftConfig = nil;
     return [self updateUser: user];
 }
 
-- (MPKitExecStatus *)logCommerceEvent:(MPCommerceEvent *)commerceEvent {
+
+- (MPKitExecStatus *)logBaseEvent:(MPBaseEvent *)event{
+    if ([event isKindOfClass:[MPEvent class]]) {
+        return [self routeEvent:(MPEvent *)event];
+    } else if ([event isKindOfClass:[MPCommerceEvent class]]) {
+       return [self routeCommerceEvent:(MPCommerceEvent *)event];
+    } else {
+        return [[MPKitExecStatus alloc] initWithSDKCode:@(MPKitInstanceBlueshift) returnCode:MPKitReturnCodeUnavailable];
+    }
+}
+
+- (MPKitExecStatus *)routeEvent:(MPEvent *)event {
+    if (event && event.customAttributes) {
+        [[BlueShift sharedInstance] trackEventForEventName: event.name andParameters: event.customAttributes canBatchThisEvent: NO];
+    }
+    
+    return [self execStatus:MPKitReturnCodeSuccess];
+}
+
+- (MPKitExecStatus *)routeCommerceEvent:(MPCommerceEvent *)commerceEvent {
     MPKitExecStatus *execStatus = [[MPKitExecStatus alloc] initWithSDKCode:@(MPKitInstanceBlueshift) returnCode:MPKitReturnCodeSuccess forwardCount:0];
     
     if (commerceEvent.action == MPCommerceEventActionPurchase) {
-        
-    } else { // Other commerce events are expanded and logged as regular events
+        [[BlueShift sharedInstance] trackEventForEventName: kEventPurchase andParameters: commerceEvent.customAttributes canBatchThisEvent: NO];
+    } else {
         NSArray *expandedInstructions = [commerceEvent expandedInstructions];
-    
+        
         for (MPCommerceEventInstruction *commerceEventInstruction in expandedInstructions) {
-            [self logEvent:commerceEventInstruction.event];
+            [self logBaseEvent:commerceEventInstruction.event];
             [execStatus incrementForwardCount];
         }
     }
@@ -180,22 +197,26 @@ __weak static BlueShiftConfig *blueshiftConfig = nil;
     return execStatus;
 }
 
-- (MPKitExecStatus *)logEvent:(MPEvent *)event {
-    if (event && event.customFlags) {
-        [[BlueShift sharedInstance] trackEventForEventName:event.name andParameters: event.customFlags canBatchThisEvent:NO];
+- (MPKitExecStatus *)logScreen:(MPEvent *)event {
+    if (event && event.customAttributes) {
+        NSMutableDictionary *customAttributes =[[event customAttributes] copy];
+        [customAttributes setObject: event.name forKey: MPKITBlueshiftScreenViewwd];
+        
+        [[BlueShift sharedInstance] trackEventForEventName:kEventPageLoad andParameters: customAttributes canBatchThisEvent:NO];
     }
     
     return [self execStatus:MPKitReturnCodeSuccess];
 }
 
-
-
 - (MPKitExecStatus *)updateUser:(FilteredMParticleUser *)user {
     if (user) {
         BlueShiftUserInfo *userInfo = [BlueShiftUserInfo sharedInstance];
         NSDictionary *userAttributes = user.userAttributes;
-        if ([userAttributes objectForKey: MPKitBlueshiftUserAttributeCustomerID] && [userAttributes objectForKey: MPKitBlueshiftUserAttributeCustomerID]) {
-            userInfo.retailerCustomerID = (NSString *)[userAttributes objectForKey: MPKitBlueshiftUserAttributeCustomerID];
+        NSDictionary *userIdentities = user.userIdentities;
+        
+        
+        if (userIdentities[@(MPUserIdentityCustomerId)] && userIdentities[@(MPUserIdentityCustomerId)] != [NSNull null]) {
+            userInfo.retailerCustomerID = (NSString *) userIdentities[@(MPUserIdentityCustomerId)];
         }
         
         if ([userAttributes objectForKey: mParticleUserAttributeFirstName] && [userAttributes objectForKey:mParticleUserAttributeFirstName] != [NSNull null]) {
@@ -207,8 +228,8 @@ __weak static BlueShiftConfig *blueshiftConfig = nil;
             userInfo.lastName = (NSString *)[userAttributes objectForKey: mParticleUserAttributeLastName];
         }
         
-        if ([userAttributes objectForKey: MPKitBlueshiftUserAttributeEmail] && [userAttributes objectForKey: MPKitBlueshiftUserAttributeEmail] != [NSNull null]) {
-            userInfo.email = (NSString *)[userAttributes objectForKey: MPKitBlueshiftUserAttributeEmail];
+        if (userIdentities[@(MPUserIdentityEmail)] && userIdentities[@(MPUserIdentityEmail)] != [NSNull null]) {
+            userInfo.email = (NSString *) userIdentities[@(MPUserIdentityEmail)];
         }
         
         if ([userAttributes objectForKey: MPKitBlueshifUserAttributesDOB] && [userAttributes objectForKey: MPKitBlueshifUserAttributesDOB] != [NSNull null]) {
@@ -225,8 +246,8 @@ __weak static BlueShiftConfig *blueshiftConfig = nil;
             userInfo.dateOfBirth = [NSDate dateWithTimeIntervalSinceReferenceDate:joinedAtTimeStamp];
         }
         
-        if ([userAttributes objectForKey: MPKitBlueshifUserAttributesFacebookID] && [userAttributes objectForKey: MPKitBlueshifUserAttributesFacebookID] != [NSNull null]) {
-            userInfo.facebookID = (NSString *)[userAttributes objectForKey: MPKitBlueshifUserAttributesFacebookID];
+        if (userIdentities[@(MPUserIdentityFacebook)] && userIdentities[@(MPUserIdentityFacebook)] != [NSNull null]) {
+            userInfo.facebookID = (NSString *) userIdentities[@(MPUserIdentityFacebook)];
         }
         
         if ([userAttributes objectForKey: MPKitBlueshifUserAttributesEducation] && [userAttributes objectForKey: MPKitBlueshifUserAttributesEducation] != [NSNull null]) {

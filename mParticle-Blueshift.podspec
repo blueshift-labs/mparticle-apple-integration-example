@@ -18,7 +18,7 @@ Pod::Spec.new do |s|
   s.source       = { :git => "https://github.com/mparticle-integrations/mparticle-apple-integration-example.git", :tag => "1.0.0" }
   s.exclude_files = "Classes/Exclude"
   s.ios.source_files = 'mParticle-Blueshift/*.{h,m}'
-  s.ios.dependency 'mParticle-Apple-SDK', '~> 7.7.0'
+  s.ios.dependency 'mParticle-Apple-SDK'
   s.ios.frameworks = 'CoreTelephony', 'SystemConfiguration'
   s.ios.dependency 'BlueShift-iOS-SDK', '~> 2.0.7'
   

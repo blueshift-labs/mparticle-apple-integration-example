@@ -27,7 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, strong, nullable) NSDictionary *launchOptions;
 @property (nonatomic, unsafe_unretained, readonly) BOOL started;
 
-+ (void)setupBlueshiftConfig:(BlueShiftConfig *)config
++ (void)setupBlueshiftConfig:(BlueShiftConfig *)config;
 + (void)registerForInAppMessage:(NSString *)displayPage;
 + (void)unregisterForInAppMessage;
 + (void)fetchInAppNotificationFromAPI:(void (^_Nonnull)(void))success failure:(void (^)(NSError*))failure;
