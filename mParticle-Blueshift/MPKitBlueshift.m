@@ -8,16 +8,14 @@
 #import "MPKitBlueshift.h"
 
 static NSString *const apiKey = @"apiKey";
-static NSString *const appGroup = @"appGroup";
-static NSString *const enablePushNotifcation = @"enablePushNotification";
-static NSString *const enableInAppNotification = @"enableInApp";
-static NSString *const enableManualTrigger = @"enableManualTrigger";
-static NSString *const enableBackgroundFetch = @"enableBackgroundFetch";
-static NSString *const inAppTimeInterval = @"inAppTimeInterval";
+NSString *const MPKitBlueshiftUserAttributeCustomerID = @"customer_id";
+NSString *const MPKitBlueshiftUserAttributeEmail = @"email";
+NSString *const MPKitBlueshifUserAttributesDOB = @"date_of_birth";
+NSString *const MPKitBlueshifUserAttributesJoinedAt = @"joined_at";
+NSString *const MPKitBlueshifUserAttributesFacebookID = @"facebook_id";
+NSString *const MPKitBlueshifUserAttributesEducation = @"education";
 
-__weak static id<BlueShiftInAppNotificationDelegate> inAppMessageControllerDelegate = nil;
-__weak static id<BlueShiftPushDelegate> pushNotificationControllerDelegate = nil;
-__weak static NSDictionary *blueshiftConfiguration = nil;
+__weak static BlueShiftConfig *blueshiftConfig = nil;
 
 
 @implementation MPKitBlueshift
@@ -31,20 +29,12 @@ __weak static NSDictionary *blueshiftConfiguration = nil;
     [MParticle registerExtension:kitRegister];
 }
 
-+ (void)setInAppMessageControllerDelegate:(id)delegate {
-    inAppMessageControllerDelegate = (id<BlueShiftInAppNotificationDelegate>)delegate;
+- (id const)providerKitInstance {
+    return [self started] ? [BlueShift sharedInstance] : nil;
 }
 
-+ (id<BlueShiftInAppNotificationDelegate>)inAppMessageControllerDelegate {
-    return inAppMessageControllerDelegate;
-}
-
-+ (void)setPushNotificationControllerDelegate:(id)delegate {
-    pushNotificationControllerDelegate = (id<BlueShiftPushDelegate>)delegate;
-}
-
-+ (id<BlueShiftPushDelegate>)pushNotificationControllerDelegate {
-    return pushNotificationControllerDelegate;
+- (MPKitExecStatus *)execStatus:(MPKitReturnCode)returnCode {
+    return [[MPKitExecStatus alloc] initWithSDKCode:@(MPKitInstanceBlueshift) returnCode:returnCode];
 }
 
 + (void)registerForInAppMessage:(NSString *)displayPage {
@@ -73,6 +63,10 @@ __weak static NSDictionary *blueshiftConfiguration = nil;
     }];
 }
 
++ (void)setupBlueshiftConfig:(BlueShiftConfig *)config {
+    blueshiftConfig = config;
+}
+
 - (MPKitExecStatus *)didFinishLaunchingWithConfiguration:(NSDictionary *)configuration {
     if (!configuration[apiKey]) {
         return [self execStatus:MPKitReturnCodeRequirementsNotMet];
@@ -95,11 +89,17 @@ __weak static NSDictionary *blueshiftConfiguration = nil;
     static dispatch_once_t kitPredicate;
 
     dispatch_once(&kitPredicate, ^{
-        self->_started = YES;
-
        if ([BlueShift sharedInstance]) {
             return;
         }
+        
+        if (blueshiftConfig) {
+            [blueshiftConfig setApplicationLaunchOptions: self.launchOptions];
+            
+            [BlueShift initWithConfiguration:blueshiftConfig];
+        }
+        
+        self->_started = YES;
         
         dispatch_async(dispatch_get_main_queue(), ^{
             NSDictionary *userInfo = @{mParticleKitInstanceKey:[[self class] kitCode]};
@@ -110,79 +110,135 @@ __weak static NSDictionary *blueshiftConfiguration = nil;
     });
 }
 
-- (id const)providerKitInstance {
-    return [self started] ? [BlueShift sharedInstance] : nil;
-}
-
-- (MPKitExecStatus *)execStatus:(MPKitReturnCode)returnCode {
-    return [[MPKitExecStatus alloc] initWithSDKCode:self.class.kitCode returnCode:returnCode];
-}
-
--(MPKitExecStatus *)setDeviceToken:(NSData *)deviceToken {
+- (MPKitExecStatus *)setDeviceToken:(NSData *)deviceToken {
     [[BlueShift sharedInstance].appDelegate registerForRemoteNotification:deviceToken];
     
     return [self execStatus:MPKitReturnCodeSuccess];
 }
 
--(MPKitExecStatus *)receivedUserNotification:(NSDictionary *)userInfo {
+- (MPKitExecStatus *)receivedUserNotification:(NSDictionary *)userInfo {
     [[BlueShift sharedInstance].appDelegate handleRemoteNotification: userInfo];
     
     return [self execStatus:MPKitReturnCodeSuccess];
 }
 
--(MPKitExecStatus *)handleActionWithIdentifier:(NSString *)identifier forRemoteNotification:(NSDictionary *)userInfo {
+- (MPKitExecStatus *)handleActionWithIdentifier:(NSString *)identifier forRemoteNotification:(NSDictionary *)userInfo {
     
     [[BlueShift sharedInstance].appDelegate handleActionWithIdentifier:identifier forRemoteNotification:userInfo completionHandler:^{}];
     
    return [self execStatus:MPKitReturnCodeSuccess];
 }
 
-+ (void)initializeBlueshiftConfig:(NSDictionary *)configDictionary {
-    blueshiftConfiguration = configDictionary;
+- (MPKitExecStatus *)onIncrementUserAttribute:(FilteredMParticleUser *)user {
+    return [self updateUser:user];
 }
 
-- (BlueShiftConfig *)fetchBlueshiftConfig:(NSDictionary *)configDictionary{
-    BlueShiftConfig *config = [BlueShiftConfig config];
+- (MPKitExecStatus *)onRemoveUserAttribute:(FilteredMParticleUser *)user {
+    [BlueShiftUserInfo removeCurrentUserInfo];
     
-    if ([configDictionary objectForKey: apiKey] && [configDictionary objectForKey: apiKey] != [NSNull null]) {
-        [config setApiKey: [configDictionary objectForKey: apiKey]];
+    return [self execStatus:MPKitReturnCodeSuccess];
+}
+
+- (MPKitExecStatus *)onSetUserAttribute:(FilteredMParticleUser *)user {
+    return [self updateUser: user];
+}
+
+- (MPKitExecStatus *)onSetUserTag:(FilteredMParticleUser *)user {
+    return [self execStatus:MPKitReturnCodeSuccess];
+}
+
+- (MPKitExecStatus *)onIdentifyComplete:(FilteredMParticleUser *)user request:(FilteredMPIdentityApiRequest *)request {
+    return [self updateUser: user];
+}
+
+- (MPKitExecStatus *)onLoginComplete:(FilteredMParticleUser *)user request:(FilteredMPIdentityApiRequest *)request {
+    return [self updateUser: user];
+}
+
+- (MPKitExecStatus *)onLogoutComplete:(FilteredMParticleUser *)user request:(FilteredMPIdentityApiRequest *)request {
+    return [self updateUser: user];
+}
+
+- (MPKitExecStatus *)onModifyComplete:(FilteredMParticleUser *)user request:(FilteredMPIdentityApiRequest *)request {
+    return [self updateUser: user];
+}
+
+- (MPKitExecStatus *)logCommerceEvent:(MPCommerceEvent *)commerceEvent {
+    MPKitExecStatus *execStatus = [[MPKitExecStatus alloc] initWithSDKCode:@(MPKitInstanceBlueshift) returnCode:MPKitReturnCodeSuccess forwardCount:0];
+    
+    if (commerceEvent.action == MPCommerceEventActionPurchase) {
+        
+    } else { // Other commerce events are expanded and logged as regular events
+        NSArray *expandedInstructions = [commerceEvent expandedInstructions];
+    
+        for (MPCommerceEventInstruction *commerceEventInstruction in expandedInstructions) {
+            [self logEvent:commerceEventInstruction.event];
+            [execStatus incrementForwardCount];
+        }
     }
     
-   // [config setApplicationLaunchOptions: self.launchOptions];
-    
-    if ([configDictionary objectForKey: appGroup] && [configDictionary objectForKey: appGroup] != [NSNull null]) {
-        [config setAppGroupID:[configDictionary objectForKey: appGroup]];
+    return execStatus;
+}
+
+- (MPKitExecStatus *)logEvent:(MPEvent *)event {
+    if (event && event.customFlags) {
+        [[BlueShift sharedInstance] trackEventForEventName:event.name andParameters: event.customFlags canBatchThisEvent:NO];
     }
     
-    if ([configDictionary objectForKey: enablePushNotifcation] && [configDictionary objectForKey: enablePushNotifcation] != [NSNull null]) {
-        [config setEnablePushNotification: [[configDictionary objectForKey: enablePushNotifcation] boolValue]];
+    return [self execStatus:MPKitReturnCodeSuccess];
+}
+
+
+
+- (MPKitExecStatus *)updateUser:(FilteredMParticleUser *)user {
+    if (user) {
+        BlueShiftUserInfo *userInfo = [BlueShiftUserInfo sharedInstance];
+        NSDictionary *userAttributes = user.userAttributes;
+        if ([userAttributes objectForKey: MPKitBlueshiftUserAttributeCustomerID] && [userAttributes objectForKey: MPKitBlueshiftUserAttributeCustomerID]) {
+            userInfo.retailerCustomerID = (NSString *)[userAttributes objectForKey: MPKitBlueshiftUserAttributeCustomerID];
+        }
+        
+        if ([userAttributes objectForKey: mParticleUserAttributeFirstName] && [userAttributes objectForKey:mParticleUserAttributeFirstName] != [NSNull null]) {
+            userInfo.name = (NSString *)[userAttributes objectForKey: mParticleUserAttributeFirstName];
+            userInfo.firstName = (NSString *)[userAttributes objectForKey: mParticleUserAttributeFirstName];
+        }
+        
+        if ([userAttributes objectForKey: mParticleUserAttributeLastName] && [userAttributes objectForKey: mParticleUserAttributeLastName] != [NSNull null]) {
+            userInfo.lastName = (NSString *)[userAttributes objectForKey: mParticleUserAttributeLastName];
+        }
+        
+        if ([userAttributes objectForKey: MPKitBlueshiftUserAttributeEmail] && [userAttributes objectForKey: MPKitBlueshiftUserAttributeEmail] != [NSNull null]) {
+            userInfo.email = (NSString *)[userAttributes objectForKey: MPKitBlueshiftUserAttributeEmail];
+        }
+        
+        if ([userAttributes objectForKey: MPKitBlueshifUserAttributesDOB] && [userAttributes objectForKey: MPKitBlueshifUserAttributesDOB] != [NSNull null]) {
+             NSTimeInterval dateOfBirthTimeStamp = [[userAttributes objectForKey: MPKitBlueshifUserAttributesDOB] doubleValue];
+            userInfo.dateOfBirth = [NSDate dateWithTimeIntervalSinceReferenceDate:dateOfBirthTimeStamp];
+        }
+        
+        if ([userAttributes objectForKey: mParticleUserAttributeGender] && [userAttributes objectForKey: mParticleUserAttributeGender] != [NSNull null]) {
+            userInfo.gender = (NSString *)[userAttributes objectForKey: mParticleUserAttributeGender];
+        }
+        
+        if ([userAttributes objectForKey: MPKitBlueshifUserAttributesJoinedAt] && [userAttributes objectForKey: MPKitBlueshifUserAttributesJoinedAt] != [NSNull null]) {
+            NSTimeInterval joinedAtTimeStamp = [[userAttributes objectForKey: MPKitBlueshifUserAttributesJoinedAt] doubleValue];
+            userInfo.dateOfBirth = [NSDate dateWithTimeIntervalSinceReferenceDate:joinedAtTimeStamp];
+        }
+        
+        if ([userAttributes objectForKey: MPKitBlueshifUserAttributesFacebookID] && [userAttributes objectForKey: MPKitBlueshifUserAttributesFacebookID] != [NSNull null]) {
+            userInfo.facebookID = (NSString *)[userAttributes objectForKey: MPKitBlueshifUserAttributesFacebookID];
+        }
+        
+        if ([userAttributes objectForKey: MPKitBlueshifUserAttributesEducation] && [userAttributes objectForKey: MPKitBlueshifUserAttributesEducation] != [NSNull null]) {
+            userInfo.education = (NSString *)[userAttributes objectForKey: MPKitBlueshifUserAttributesEducation];
+        }
+        
+        //todo add additional dictionary
+        
+        [userInfo save];
     }
     
-    if ([configDictionary objectForKey: enableInAppNotification] && [configDictionary objectForKey: enableInAppNotification] != [NSNull null]) {
-        [config setEnableInAppNotification:[[configDictionary objectForKey: enableInAppNotification] boolValue]];
-    }
-    
-    if ([configDictionary objectForKey: enableManualTrigger] && [configDictionary objectForKey: enableManualTrigger] != [NSNull null]) {
-        [config setInAppManualTriggerEnabled: [[configDictionary objectForKey: enableManualTrigger] boolValue]];
-    }
-    
-    if ([configDictionary objectForKey: enableBackgroundFetch] && [configDictionary objectForKey: enableBackgroundFetch] != [NSNull null]) {
-        [config setInAppBackgroundFetchEnabled:[[configDictionary objectForKey: enableBackgroundFetch] boolValue]];
-    }
-    
-    if ([configDictionary objectForKey: inAppTimeInterval] && [configDictionary objectForKey:inAppTimeInterval] != [NSNull null]) {
-        [config setBlueshiftInAppNotificationTimeInterval:[[configDictionary objectForKey: inAppTimeInterval] doubleValue]];
-    }
-    
-    if ([MPKitBlueshift pushNotificationControllerDelegate]) {
-        [config setBlueShiftPushDelegate:[MPKitBlueshift pushNotificationControllerDelegate]];
-    }
-    
-    if ([MPKitBlueshift inAppMessageControllerDelegate]) {
-        [config setInAppNotificationDelegate: [MPKitBlueshift inAppMessageControllerDelegate]];
-    }
-    
-    return config;
+    return [self execStatus:MPKitReturnCodeSuccess];
 }
 
 @end
