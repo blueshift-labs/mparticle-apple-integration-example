@@ -66,7 +66,7 @@ __weak static BlueShiftConfig *blueshiftConfig = nil;
 }
 
 - (MPKitExecStatus *)didFinishLaunchingWithConfiguration:(NSDictionary *)configuration {
-    if (!configuration[eabAPIKey]) {
+    if ([configuration objectForKey:@"eventApiKey"] == nil) {
         return [self execStatus:MPKitReturnCodeRequirementsNotMet];
     }
     
@@ -75,8 +75,10 @@ __weak static BlueShiftConfig *blueshiftConfig = nil;
     _configuration = configuration;
 
    if ([BlueShift sharedInstance]) {
+        NSLog(@"instance not equal null");
         [self start];
     } else {
+        NSLog(@"instance equal null");
         _started = NO;
     }
 
@@ -86,13 +88,21 @@ __weak static BlueShiftConfig *blueshiftConfig = nil;
 - (void)start {
     static dispatch_once_t kitPredicate;
 
+    NSLog(@"mParticle Started");
+    
     dispatch_once(&kitPredicate, ^{
-       if ([BlueShift sharedInstance]) {
-            return;
+       if (![BlueShift sharedInstance]) {
+           NSLog(@"mParticle Started");
+           return;
         }
         
+        NSLog(@"mParticle Started");
+        
         if (blueshiftConfig) {
+            [blueshiftConfig setApiKey: [_configuration objectForKey: @"eventApiKey"]];
             [blueshiftConfig setApplicationLaunchOptions: self.launchOptions];
+            
+            NSLog(@"Blueshift Config");
             
             [BlueShift initWithConfiguration:blueshiftConfig];
         }
