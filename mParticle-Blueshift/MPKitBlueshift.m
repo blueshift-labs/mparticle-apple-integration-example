@@ -13,8 +13,7 @@ NSString *const MPKitBlueshifUserAttributesJoinedAt = @"joined_at";
 NSString *const MPKitBlueshifUserAttributesEducation = @"education";
 NSString *const MPKITBlueshiftScreenViewwd = @"screen_viewed";
 
-__weak static BlueShiftConfig *blueshiftConfig = nil;
-
+static BlueShiftConfig *blueshiftConfig = nil;
 
 @implementation MPKitBlueshift
 
@@ -65,6 +64,10 @@ __weak static BlueShiftConfig *blueshiftConfig = nil;
     blueshiftConfig = config;
 }
 
++ (BlueShiftConfig *)blueshiftConfig {
+    return blueshiftConfig;
+}
+
 - (MPKitExecStatus *)didFinishLaunchingWithConfiguration:(NSDictionary *)configuration {
     if ([configuration objectForKey:@"eventApiKey"] == nil) {
         return [self execStatus:MPKitReturnCodeRequirementsNotMet];
@@ -75,10 +78,8 @@ __weak static BlueShiftConfig *blueshiftConfig = nil;
     _configuration = configuration;
 
    if ([BlueShift sharedInstance]) {
-        NSLog(@"instance not equal null");
         [self start];
     } else {
-        NSLog(@"instance equal null");
         _started = NO;
     }
 
@@ -92,20 +93,14 @@ __weak static BlueShiftConfig *blueshiftConfig = nil;
     
     dispatch_once(&kitPredicate, ^{
        if (![BlueShift sharedInstance]) {
-           NSLog(@"mParticle Started");
            return;
         }
         
-        NSLog(@"mParticle Started");
+        BlueShiftConfig *config = [MPKitBlueshift blueshiftConfig] ? [MPKitBlueshift blueshiftConfig] : [BlueShiftConfig config];
+        [config setApiKey: [_configuration objectForKey: @"eventApiKey"]];
+        [config setApplicationLaunchOptions: self.launchOptions];
         
-        if (blueshiftConfig) {
-            [blueshiftConfig setApiKey: [_configuration objectForKey: @"eventApiKey"]];
-            [blueshiftConfig setApplicationLaunchOptions: self.launchOptions];
-            
-            NSLog(@"Blueshift Config");
-            
-            [BlueShift initWithConfiguration:blueshiftConfig];
-        }
+        [BlueShift initWithConfiguration:blueshiftConfig];
         
         self->_started = YES;
         
@@ -131,7 +126,6 @@ __weak static BlueShiftConfig *blueshiftConfig = nil;
 }
 
 - (MPKitExecStatus *)handleActionWithIdentifier:(NSString *)identifier forRemoteNotification:(NSDictionary *)userInfo {
-    
     [[BlueShift sharedInstance].appDelegate handleActionWithIdentifier:identifier forRemoteNotification:userInfo completionHandler:^{}];
     
    return [self execStatus:MPKitReturnCodeSuccess];
@@ -183,9 +177,7 @@ __weak static BlueShiftConfig *blueshiftConfig = nil;
 }
 
 - (MPKitExecStatus *)routeEvent:(MPEvent *)event {
-    if (event && event.customAttributes) {
-        [[BlueShift sharedInstance] trackEventForEventName: event.name andParameters: event.customAttributes canBatchThisEvent: NO];
-    }
+    [[BlueShift sharedInstance] trackEventForEventName: event.name andParameters: event.customAttributes canBatchThisEvent: NO];
     
     return [self execStatus:MPKitReturnCodeSuccess];
 }
@@ -208,21 +200,23 @@ __weak static BlueShiftConfig *blueshiftConfig = nil;
 }
 
 - (MPKitExecStatus *)logScreen:(MPEvent *)event {
-    if (event && event.customAttributes) {
-        NSMutableDictionary *customAttributes =[[event customAttributes] copy];
-        [customAttributes setObject: event.name forKey: MPKITBlueshiftScreenViewwd];
+    NSMutableDictionary *customAttributes = [NSMutableDictionary dictionary];
+    [customAttributes setObject:event.name forKey:@"screen_viewed"];
         
-        [[BlueShift sharedInstance] trackEventForEventName:kEventPageLoad andParameters: customAttributes canBatchThisEvent:NO];
+    if (event.customAttributes) {
+        [customAttributes addEntriesFromDictionary: event.customAttributes];
     }
     
+    [[BlueShift sharedInstance] trackEventForEventName:kEventPageLoad andParameters: customAttributes canBatchThisEvent:NO];
+
     return [self execStatus:MPKitReturnCodeSuccess];
 }
 
 - (MPKitExecStatus *)updateUser:(FilteredMParticleUser *)user {
     if (user) {
         BlueShiftUserInfo *userInfo = [BlueShiftUserInfo sharedInstance];
-        NSDictionary *userAttributes = user.userAttributes;
-        NSDictionary *userIdentities = user.userIdentities;
+        NSDictionary *userAttributes = [user.userAttributes copy];
+        NSDictionary *userIdentities = [user.userIdentities copy];
         
         
         if (userIdentities[@(MPUserIdentityCustomerId)] && userIdentities[@(MPUserIdentityCustomerId)] != [NSNull null]) {
@@ -264,9 +258,11 @@ __weak static BlueShiftConfig *blueshiftConfig = nil;
             userInfo.education = (NSString *)[userAttributes objectForKey: MPKitBlueshifUserAttributesEducation];
         }
         
-        //todo add additional dictionary
-        
         [userInfo save];
+        
+        if (userInfo.email) {
+            [[BlueShift sharedInstance] identifyUserWithEmail:userInfo.email andDetails:@{} canBatchThisEvent:NO];
+        }
     }
     
     return [self execStatus:MPKitReturnCodeSuccess];
