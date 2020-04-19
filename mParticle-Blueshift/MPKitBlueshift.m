@@ -54,8 +54,8 @@ static BlueShiftConfig *blueshiftConfig = nil;
     [[BlueShift sharedInstance] displayInAppNotification];
 }
 
-+ (void)setupDeepLinks:(NSURL *)URL handler:(void (^)(NSURL *))handler {
-    [[BlueShift sharedInstance] setupDeepLinks:URL handler:^(NSURL *URL) {
++ (void)handleBlueshiftLink:(NSURL *)URL handler:(void (^)(NSURL *))handler {
+    [[BlueShift sharedInstance] handleBlueshiftLink: URL handler:^(NSURL *URL) {
         handler(URL);
     }];
 }
@@ -88,8 +88,6 @@ static BlueShiftConfig *blueshiftConfig = nil;
 
 - (void)start {
     static dispatch_once_t kitPredicate;
-
-    NSLog(@"mParticle Started");
     
     dispatch_once(&kitPredicate, ^{
        if (![BlueShift sharedInstance]) {
