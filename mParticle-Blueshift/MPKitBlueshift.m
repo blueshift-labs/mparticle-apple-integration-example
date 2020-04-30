@@ -8,10 +8,11 @@
 #import "MPKitBlueshift.h"
 
 static NSString *const eabAPIKey = @"eventApiKey";
-NSString *const MPKitBlueshifUserAttributesDOB = @"date_of_birth";
-NSString *const MPKitBlueshifUserAttributesJoinedAt = @"joined_at";
-NSString *const MPKitBlueshifUserAttributesEducation = @"education";
+NSString *const MPKitBlueshiftUserAttributesDOB = @"date_of_birth";
+NSString *const MPKitBlueshiftUserAttributesJoinedAt = @"joined_at";
+NSString *const MPKitBlueshiftUserAttributesEducation = @"education";
 NSString *const MPKITBlueshiftScreenViewwd = @"screen_viewed";
+NSString *const BSFT_MESSAGE_UUID =@"bsft_message_uuid";
 
 static BlueShiftConfig *blueshiftConfig = nil;
 
@@ -60,7 +61,7 @@ static BlueShiftConfig *blueshiftConfig = nil;
     }];
 }
 
-+ (void)setupBlueshiftConfig:(BlueShiftConfig *)config {
++ (void)setBlueshiftConfig:(BlueShiftConfig *)config {
     blueshiftConfig = config;
 }
 
@@ -118,13 +119,17 @@ static BlueShiftConfig *blueshiftConfig = nil;
 }
 
 - (MPKitExecStatus *)receivedUserNotification:(NSDictionary *)userInfo {
-    [[BlueShift sharedInstance].appDelegate handleRemoteNotification: userInfo];
+    if ([self willHandlePushMessage: userInfo]) {
+        [[BlueShift sharedInstance].appDelegate handleRemoteNotification: userInfo];
+    }
     
     return [self execStatus:MPKitReturnCodeSuccess];
 }
 
 - (MPKitExecStatus *)handleActionWithIdentifier:(NSString *)identifier forRemoteNotification:(NSDictionary *)userInfo {
-    [[BlueShift sharedInstance].appDelegate handleActionWithIdentifier:identifier forRemoteNotification:userInfo completionHandler:^{}];
+    if ([self willHandlePushMessage: userInfo]) {
+        [[BlueShift sharedInstance].appDelegate handleActionWithIdentifier:identifier forRemoteNotification:userInfo completionHandler:^{}];
+    }
     
    return [self execStatus:MPKitReturnCodeSuccess];
 }
@@ -234,8 +239,8 @@ static BlueShiftConfig *blueshiftConfig = nil;
             userInfo.email = (NSString *) userIdentities[@(MPUserIdentityEmail)];
         }
         
-        if ([userAttributes objectForKey: MPKitBlueshifUserAttributesDOB] && [userAttributes objectForKey: MPKitBlueshifUserAttributesDOB] != [NSNull null]) {
-             NSTimeInterval dateOfBirthTimeStamp = [[userAttributes objectForKey: MPKitBlueshifUserAttributesDOB] doubleValue];
+        if ([userAttributes objectForKey: MPKitBlueshiftUserAttributesDOB] && [userAttributes objectForKey: MPKitBlueshiftUserAttributesDOB] != [NSNull null]) {
+             NSTimeInterval dateOfBirthTimeStamp = [[userAttributes objectForKey: MPKitBlueshiftUserAttributesDOB] doubleValue];
             userInfo.dateOfBirth = [NSDate dateWithTimeIntervalSinceReferenceDate:dateOfBirthTimeStamp];
         }
         
@@ -243,8 +248,8 @@ static BlueShiftConfig *blueshiftConfig = nil;
             userInfo.gender = (NSString *)[userAttributes objectForKey: mParticleUserAttributeGender];
         }
         
-        if ([userAttributes objectForKey: MPKitBlueshifUserAttributesJoinedAt] && [userAttributes objectForKey: MPKitBlueshifUserAttributesJoinedAt] != [NSNull null]) {
-            NSTimeInterval joinedAtTimeStamp = [[userAttributes objectForKey: MPKitBlueshifUserAttributesJoinedAt] doubleValue];
+        if ([userAttributes objectForKey: MPKitBlueshiftUserAttributesJoinedAt] && [userAttributes objectForKey: MPKitBlueshiftUserAttributesJoinedAt] != [NSNull null]) {
+            NSTimeInterval joinedAtTimeStamp = [[userAttributes objectForKey: MPKitBlueshiftUserAttributesJoinedAt] doubleValue];
             userInfo.dateOfBirth = [NSDate dateWithTimeIntervalSinceReferenceDate:joinedAtTimeStamp];
         }
         
@@ -252,8 +257,8 @@ static BlueShiftConfig *blueshiftConfig = nil;
             userInfo.facebookID = (NSString *) userIdentities[@(MPUserIdentityFacebook)];
         }
         
-        if ([userAttributes objectForKey: MPKitBlueshifUserAttributesEducation] && [userAttributes objectForKey: MPKitBlueshifUserAttributesEducation] != [NSNull null]) {
-            userInfo.education = (NSString *)[userAttributes objectForKey: MPKitBlueshifUserAttributesEducation];
+        if ([userAttributes objectForKey: MPKitBlueshiftUserAttributesEducation] && [userAttributes objectForKey: MPKitBlueshiftUserAttributesEducation] != [NSNull null]) {
+            userInfo.education = (NSString *)[userAttributes objectForKey: MPKitBlueshiftUserAttributesEducation];
         }
         
         [userInfo save];
@@ -264,6 +269,15 @@ static BlueShiftConfig *blueshiftConfig = nil;
     }
     
     return [self execStatus:MPKitReturnCodeSuccess];
+}
+
+- (BOOL)willHandlePushMessage:(NSDictionary *)userinfo {
+    BlueShiftConfig *config = [BlueShiftConfig config];
+    if (config && !config.enablePushNotification) {
+        return NO;
+    }
+    
+    return userinfo && [userinfo objectForKey: BSFT_MESSAGE_UUID];
 }
 
 @end
