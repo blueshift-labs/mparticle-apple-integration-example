@@ -7,11 +7,19 @@
 //
 #import "MPKitBlueshift.h"
 
-static NSString *const eabAPIKey = @"eventApiKey";
+NSString *const BlueshiftEventApiKey = @"eventApiKey";
 NSString *const MPKitBlueshiftUserAttributesDOB = @"date_of_birth";
 NSString *const MPKitBlueshiftUserAttributesJoinedAt = @"joined_at";
 NSString *const MPKitBlueshiftUserAttributesEducation = @"education";
-NSString *const MPKITBlueshiftScreenViewwd = @"screen_viewed";
+NSString *const MPKitBlueshiftScreenViewed = @"screen_viewed";
+NSString *const MPKitBlueshiftUserAttributesAge = @"age";
+NSString *const MPKitBlueshiftUserAttributesAddress = @"address";
+NSString *const MPKitBlueshiftUserAttributesMobile = @"mobile";
+NSString *const MPKitBlueshiftUserAttributesCity = @"city";
+NSString *const MPKitBlueshiftUserAttributesState = @"state";
+NSString *const MPKitBlueshiftUserAttributesZipCode = @"zip_code";
+NSString *const MPKitBlueshiftUserAttributesCountry = @"country";
+
 NSString *const BSFT_MESSAGE_UUID =@"bsft_message_uuid";
 
 static BlueShiftConfig *blueshiftConfig = nil;
@@ -70,7 +78,7 @@ static BlueShiftConfig *blueshiftConfig = nil;
 }
 
 - (MPKitExecStatus *)didFinishLaunchingWithConfiguration:(NSDictionary *)configuration {
-    if ([configuration objectForKey:@"eventApiKey"] == nil) {
+    if ([configuration objectForKey: BlueshiftEventApiKey] == nil) {
         return [self execStatus:MPKitReturnCodeRequirementsNotMet];
     }
     
@@ -96,7 +104,7 @@ static BlueShiftConfig *blueshiftConfig = nil;
         }
         
         BlueShiftConfig *config = [MPKitBlueshift blueshiftConfig] ? [MPKitBlueshift blueshiftConfig] : [BlueShiftConfig config];
-        [config setApiKey: [_configuration objectForKey: @"eventApiKey"]];
+        [config setApiKey: [_configuration objectForKey: BlueshiftEventApiKey]];
         [config setApplicationLaunchOptions: self.launchOptions];
         
         [BlueShift initWithConfiguration:blueshiftConfig];
@@ -204,7 +212,7 @@ static BlueShiftConfig *blueshiftConfig = nil;
 
 - (MPKitExecStatus *)logScreen:(MPEvent *)event {
     NSMutableDictionary *customAttributes = [NSMutableDictionary dictionary];
-    [customAttributes setObject:event.name forKey:@"screen_viewed"];
+    [customAttributes setObject:event.name forKey: MPKitBlueshiftScreenViewed];
         
     if (event.customAttributes) {
         [customAttributes addEntriesFromDictionary: event.customAttributes];
@@ -261,8 +269,42 @@ static BlueShiftConfig *blueshiftConfig = nil;
             userInfo.education = (NSString *)[userAttributes objectForKey: MPKitBlueshiftUserAttributesEducation];
         }
         
-        [userInfo save];
+        NSMutableDictionary *additionalInformation = [NSMutableDictionary dictionary];
+        if ([userAttributes objectForKey: mParticleUserAttributeAge] && [userAttributes objectForKey: mParticleUserAttributeAge] != [NSNull null]) {
+            [additionalInformation setObject: [userAttributes objectForKey: mParticleUserAttributeAge] forKey: MPKitBlueshiftUserAttributesAge];
+        }
         
+        if ([userAttributes objectForKey: mParticleUserAttributeAddress] && [userAttributes objectForKey:mParticleUserAttributeAddress] != [NSNull null]) {
+            [additionalInformation setObject:[userAttributes objectForKey:mParticleUserAttributeAddress] forKey: MPKitBlueshiftUserAttributesAddress];
+        }
+        
+        if ([userAttributes objectForKey: mParticleUserAttributeMobileNumber] && [userAttributes objectForKey: mParticleUserAttributeMobileNumber] != [NSNull null]) {
+            [additionalInformation setObject:[userAttributes objectForKey: mParticleUserAttributeMobileNumber] forKey: MPKitBlueshiftUserAttributesMobile];
+        }
+        
+        if ([userAttributes objectForKey: mParticleUserAttributeCity] && [userAttributes objectForKey: mParticleUserAttributeCity] != [NSNull null]) {
+            [additionalInformation setObject: [userAttributes objectForKey: mParticleUserAttributeCity] forKey: MPKitBlueshiftUserAttributesCity];
+        }
+    
+        if ([userAttributes objectForKey: mParticleUserAttributeState] && [userAttributes objectForKey: mParticleUserAttributeState] != [NSNull null]) {
+            [additionalInformation setObject: [userAttributes objectForKey: mParticleUserAttributeState] forKey: MPKitBlueshiftUserAttributesState];
+        }
+        
+        if ([userAttributes objectForKey: mParticleUserAttributeZip] && [userAttributes objectForKey: mParticleUserAttributeZip] != [NSNull null]) {
+            [additionalInformation setObject: [userAttributes objectForKey: mParticleUserAttributeZip] forKey: MPKitBlueshiftUserAttributesZipCode];
+        }
+        
+        if ([userAttributes objectForKey: mParticleUserAttributeCountry] && [userAttributes objectForKey: mParticleUserAttributeCountry] != [NSNull null]) {
+            [additionalInformation setObject: [userAttributes objectForKey: mParticleUserAttributeCountry] forKey: MPKitBlueshiftUserAttributesCountry];
+        }
+        
+        if (additionalInformation) {
+            userInfo.additionalUserInfo = additionalInformation;
+        }
+        
+        
+        [userInfo save];
+
         if (userInfo.email) {
             [[BlueShift sharedInstance] identifyUserWithEmail:userInfo.email andDetails:@{} canBatchThisEvent:NO];
         }
