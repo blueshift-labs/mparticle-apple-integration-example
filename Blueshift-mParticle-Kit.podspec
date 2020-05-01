@@ -13,7 +13,7 @@ Pod::Spec.new do |s|
                    DESC
 
   s.homepage    = "https://github.com/blueshift-labs/mparticle-apple-integration-blueshift"
-  s.license     = { :type => "MIT", :file => "LICENSE.md" }
+  s.license     = { :type => "MIT", :file => "LICENSE" }
   s.author      = { "Blueshift" => "success@getblueshift.com" }
   s.source      = { :git => "https://github.com/blueshift-labs/mparticle-apple-integration-blueshift.git", :tag => "0.0.1" }
   s.exclude_files         = "Classes/Exclude"
