@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
-  s.name         = "mParticle-Blueshift"
-  s.version      = "1.0.0"
+  s.name         = "Blueshift-mParticle-Kit"
+  s.version      = "0.0.1"
   s.summary      = "iOS SDK for integrating push notification and analytics"
 
   s.description  = <<-DESC
@@ -11,15 +11,15 @@ Pod::Spec.new do |s|
                    * Finally, don't worry about the indent, CocoaPods strips it!
                    DESC
 
-  s.homepage     = "https://github.com/blueshift-labs/Blueshift-iOS-SDK"
-  s.license      = { :type => "MIT", :file => "LICENSE.md" }
-  s.author             = { "Blueshift" => "success@getblueshift.com" }
+  s.homepage    = "https://github.com/blueshift-labs/mparticle-apple-integration-blueshift"
+  s.license     = { :type => "MIT", :file => "LICENSE.md" }
+  s.author      = { "Blueshift" => "success@getblueshift.com" }
+  s.source      = { :git => "https://github.com/blueshift-labs/mparticle-apple-integration-blueshift.git", :tag => "0.0.1" }
+  s.exclude_files         = "Classes/Exclude"
   s.ios.deployment_target = "9.0"
-  s.source       = { :git => "https://github.com/mparticle-integrations/mparticle-apple-integration-example.git", :tag => "1.0.0" }
-  s.exclude_files = "Classes/Exclude"
-  s.ios.source_files = 'mParticle-Blueshift/*.{h,m}'
+  s.ios.frameworks        = 'CoreTelephony', 'SystemConfiguration'
+  s.ios.source_files      = 'mParticle-Blueshift/*.{h,m}'
   s.ios.dependency 'mParticle-Apple-SDK'
-  s.ios.frameworks = 'CoreTelephony', 'SystemConfiguration'
-  s.ios.dependency 'BlueShift-iOS-SDK', '~> 2.0.7'
+  s.ios.dependency 'BlueShift-iOS-SDK'
   
 end
