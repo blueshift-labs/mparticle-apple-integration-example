@@ -1,4 +1,5 @@
 Pod::Spec.new do |s|
+  # s.name         = "Blueshift-mParticle-Kit"
   s.name         = "Blueshift-mParticle-Kit"
   s.version      = "0.0.1"
   s.summary      = "iOS SDK for integrating push notification and analytics"
@@ -18,8 +19,8 @@ Pod::Spec.new do |s|
   s.exclude_files         = "Classes/Exclude"
   s.ios.deployment_target = "9.0"
   s.ios.frameworks        = 'CoreTelephony', 'SystemConfiguration'
-  s.ios.source_files      = 'mParticle-Blueshift/*.{h,m}'
+  s.ios.source_files      = 'Blueshift-mParticle-Kit/*.{h,m}'
   s.ios.dependency 'mParticle-Apple-SDK'
   s.ios.dependency 'BlueShift-iOS-SDK'
-  
+
 end

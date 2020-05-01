@@ -7,7 +7,7 @@ This repository contains the [Blueshift](https://developer.blueshift.com/docs/ab
 1. Add the kit dependency to your app's Podfile or Cartfile:
 
     ```
-    pod 'mParticle-Blueshift'
+    pod 'Blueshift-mParticle-Kit'
     ```
 
     OR

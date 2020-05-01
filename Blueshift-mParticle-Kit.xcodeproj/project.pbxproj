@@ -13,8 +13,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		085E9F13243F3BC2007F96DA /* MPKitBlueshift.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = MPKitBlueshift.h; path = "mParticle-Blueshift/MPKitBlueshift.h"; sourceTree = SOURCE_ROOT; };
-		085E9F14243F3BC2007F96DA /* MPKitBlueshift.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = MPKitBlueshift.m; path = "mParticle-Blueshift/MPKitBlueshift.m"; sourceTree = SOURCE_ROOT; };
+		085E9F13243F3BC2007F96DA /* MPKitBlueshift.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = MPKitBlueshift.h; path = "Blueshift-mParticle-Kit/MPKitBlueshift.h"; sourceTree = SOURCE_ROOT; };
+		085E9F14243F3BC2007F96DA /* MPKitBlueshift.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = MPKitBlueshift.m; path = "Blueshift-mParticle-Kit/MPKitBlueshift.m"; sourceTree = SOURCE_ROOT; };
 		0897C815241FA136000DBCB3 /* Blueshift_mParticle_Kit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Blueshift_mParticle_Kit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0897C818241FA136000DBCB3 /* Blueshift_mParticle_Kit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Blueshift_mParticle_Kit.h; sourceTree = "<group>"; };
 		0897C819241FA136000DBCB3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -105,7 +105,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 0897C80F241FA136000DBCB3 /* Build configuration list for PBXProject "mParticle-Blueshift" */;
+			buildConfigurationList = 0897C80F241FA136000DBCB3 /* Build configuration list for PBXProject "Blueshift-mParticle-Kit" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -312,7 +312,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		0897C80F241FA136000DBCB3 /* Build configuration list for PBXProject "mParticle-Blueshift" */ = {
+		0897C80F241FA136000DBCB3 /* Build configuration list for PBXProject "Blueshift-mParticle-Kit" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				0897C81B241FA136000DBCB3 /* Debug */,
