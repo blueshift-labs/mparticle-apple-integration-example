@@ -1,22 +1,22 @@
-## Example Kit Integration
+## Blueshift Kit Integration
 
-This repository contains the [Example](https://www.example.com/) integration for the [mParticle Apple SDK](https://github.com/mParticle/mparticle-apple-sdk).
+This repository contains the [Blueshift](https://developer.blueshift.com/docs/about-the-blueshift-ios-sdk/) integration for the [mParticle Apple SDK](https://github.com/mParticle/mparticle-apple-sdk).
 
 ### Adding the integration
 
 1. Add the kit dependency to your app's Podfile or Cartfile:
 
     ```
-    pod 'mParticle-Example', '~> 7.0'
+    pod 'Blueshift-mParticle-Kit'
     ```
 
     OR
 
     ```
-    github "mparticle-integrations/mparticle-apple-integration-example" ~> 7.0
+    github "blueshift-labs/mparticle-apple-integration-example"
     ```
 
-2. Follow the mParticle iOS SDK [quick-start](https://github.com/mParticle/mparticle-apple-sdk), then rebuild and launch your app, and verify that you see `"Included kits: { Example }"` in your Xcode console 
+2. Follow the mParticle iOS SDK [quick-start](https://github.com/mParticle/mparticle-apple-sdk), then rebuild and launch your app, and verify that you see `"Included kits: { Blueshift }"` in your Xcode console 
 
 > (This requires your mParticle log level to be at least Debug)
 
@@ -24,7 +24,7 @@ This repository contains the [Example](https://www.example.com/) integration for
 
 ### Documentation
 
-[Example integration](https://docs.mparticle.com/integrations/REPLACEME/event/)
+[Blueshift integration](https://docs.mparticle.com/integrations/REPLACEME/event/)
 
 ### License
 

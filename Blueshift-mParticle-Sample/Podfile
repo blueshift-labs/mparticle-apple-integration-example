@@ -1,0 +1,11 @@
+# Uncomment the next line to define a global platform for your project
+# platform :ios, '9.0'
+
+target 'Blueshift-mParticle-Sample' do
+  # Comment the next line if you don't want to use dynamic frameworks
+  # use_frameworks!
+
+  # Pods for Blueshift-mParticle-Sample
+  pod 'Blueshift-mParticle-Kit', :path => './../'
+
+end
