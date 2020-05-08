@@ -107,7 +107,7 @@ static BlueShiftConfig *blueshiftConfig = nil;
         [config setApiKey: [_configuration objectForKey: BlueshiftEventApiKey]];
         [config setApplicationLaunchOptions: self.launchOptions];
         
-        [BlueShift initWithConfiguration:blueshiftConfig];
+        [BlueShift initWithConfiguration:config];
         
         self->_started = YES;
         
