@@ -15,6 +15,8 @@
 
 #if defined(__has_include) && __has_include(<BlueShift-iOS-SDK/BlueShift.h>)
     #import <BlueShift-iOS-SDK/BlueShift.h>
+#elif defined(__has_include) && __has_include(<BlueShift_iOS_SDK/BlueShift.h>)
+    #import <BlueShift_iOS_SDK/BlueShift.h>
 #else
     #import "BlueShift.h"
 #endif
