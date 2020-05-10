@@ -3,12 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		B79F6380245BFE8100A675C7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B79F637F245BFE8100A675C7 /* AppDelegate.m */; };
-		B79F6383245BFE8100A675C7 /* SceneDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B79F6382245BFE8100A675C7 /* SceneDelegate.m */; };
 		B79F6386245BFE8100A675C7 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B79F6385245BFE8100A675C7 /* ViewController.m */; };
 		B79F6389245BFE8100A675C7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B79F6387245BFE8100A675C7 /* Main.storyboard */; };
 		B79F638C245BFE8100A675C7 /* Blueshift_mParticle_Sample.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B79F638A245BFE8100A675C7 /* Blueshift_mParticle_Sample.xcdatamodeld */; };
@@ -23,8 +22,6 @@
 		B79F637B245BFE8100A675C7 /* Blueshift-mParticle-Sample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Blueshift-mParticle-Sample.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B79F637E245BFE8100A675C7 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		B79F637F245BFE8100A675C7 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		B79F6381245BFE8100A675C7 /* SceneDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SceneDelegate.h; sourceTree = "<group>"; };
-		B79F6382245BFE8100A675C7 /* SceneDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SceneDelegate.m; sourceTree = "<group>"; };
 		B79F6384245BFE8100A675C7 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		B79F6385245BFE8100A675C7 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		B79F6388245BFE8100A675C7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -55,7 +52,6 @@
 				F1EA5885DFEFCD52CE0DCADF /* Pods-Blueshift-mParticle-Sample.debug.xcconfig */,
 				D91261F3AA74D28EFCC23315 /* Pods-Blueshift-mParticle-Sample.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -90,8 +86,6 @@
 			children = (
 				B79F637E245BFE8100A675C7 /* AppDelegate.h */,
 				B79F637F245BFE8100A675C7 /* AppDelegate.m */,
-				B79F6381245BFE8100A675C7 /* SceneDelegate.h */,
-				B79F6382245BFE8100A675C7 /* SceneDelegate.m */,
 				B79F6384245BFE8100A675C7 /* ViewController.h */,
 				B79F6385245BFE8100A675C7 /* ViewController.m */,
 				B79F6387245BFE8100A675C7 /* Main.storyboard */,
@@ -222,7 +216,6 @@
 				B79F6386245BFE8100A675C7 /* ViewController.m in Sources */,
 				B79F6380245BFE8100A675C7 /* AppDelegate.m in Sources */,
 				B79F638C245BFE8100A675C7 /* Blueshift_mParticle_Sample.xcdatamodeld in Sources */,
-				B79F6383245BFE8100A675C7 /* SceneDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import <MPKitBlueshift.h>
 
 @interface ViewController ()
 
@@ -16,8 +17,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    [MPKitBlueshift registerForInAppMessage:NSStringFromClass([ViewController class])];
 }
 
+- (void)viewDidDisappear:(BOOL)animated{
+    [super viewDidDisappear:animated];
+    [MPKitBlueshift unregisterForInAppMessage];
+}
 
 @end
