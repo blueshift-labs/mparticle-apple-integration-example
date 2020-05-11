@@ -81,8 +81,6 @@ static BlueShiftConfig *blueshiftConfig = nil;
     if ([configuration objectForKey: BlueshiftEventApiKey] == nil) {
         return [self execStatus:MPKitReturnCodeRequirementsNotMet];
     }
-    
-    NSLog(@"%@", configuration);
 
     _configuration = configuration;
 
@@ -226,83 +224,16 @@ static BlueShiftConfig *blueshiftConfig = nil;
 - (MPKitExecStatus *)updateUser:(FilteredMParticleUser *)user {
     if (user) {
         BlueShiftUserInfo *userInfo = [BlueShiftUserInfo sharedInstance];
-        NSDictionary *userAttributes = [user.userAttributes copy];
         NSDictionary *userIdentities = [user.userIdentities copy];
-        
         
         if (userIdentities[@(MPUserIdentityCustomerId)] && userIdentities[@(MPUserIdentityCustomerId)] != [NSNull null]) {
             userInfo.retailerCustomerID = (NSString *) userIdentities[@(MPUserIdentityCustomerId)];
         }
         
-        if ([userAttributes objectForKey: mParticleUserAttributeFirstName] && [userAttributes objectForKey:mParticleUserAttributeFirstName] != [NSNull null]) {
-            userInfo.name = (NSString *)[userAttributes objectForKey: mParticleUserAttributeFirstName];
-            userInfo.firstName = (NSString *)[userAttributes objectForKey: mParticleUserAttributeFirstName];
-        }
-        
-        if ([userAttributes objectForKey: mParticleUserAttributeLastName] && [userAttributes objectForKey: mParticleUserAttributeLastName] != [NSNull null]) {
-            userInfo.lastName = (NSString *)[userAttributes objectForKey: mParticleUserAttributeLastName];
-        }
-        
         if (userIdentities[@(MPUserIdentityEmail)] && userIdentities[@(MPUserIdentityEmail)] != [NSNull null]) {
             userInfo.email = (NSString *) userIdentities[@(MPUserIdentityEmail)];
         }
-        
-        if ([userAttributes objectForKey: MPKitBlueshiftUserAttributesDOB] && [userAttributes objectForKey: MPKitBlueshiftUserAttributesDOB] != [NSNull null]) {
-             NSTimeInterval dateOfBirthTimeStamp = [[userAttributes objectForKey: MPKitBlueshiftUserAttributesDOB] doubleValue];
-            userInfo.dateOfBirth = [NSDate dateWithTimeIntervalSinceReferenceDate:dateOfBirthTimeStamp];
-        }
-        
-        if ([userAttributes objectForKey: mParticleUserAttributeGender] && [userAttributes objectForKey: mParticleUserAttributeGender] != [NSNull null]) {
-            userInfo.gender = (NSString *)[userAttributes objectForKey: mParticleUserAttributeGender];
-        }
-        
-        if ([userAttributes objectForKey: MPKitBlueshiftUserAttributesJoinedAt] && [userAttributes objectForKey: MPKitBlueshiftUserAttributesJoinedAt] != [NSNull null]) {
-            NSTimeInterval joinedAtTimeStamp = [[userAttributes objectForKey: MPKitBlueshiftUserAttributesJoinedAt] doubleValue];
-            userInfo.dateOfBirth = [NSDate dateWithTimeIntervalSinceReferenceDate:joinedAtTimeStamp];
-        }
-        
-        if (userIdentities[@(MPUserIdentityFacebook)] && userIdentities[@(MPUserIdentityFacebook)] != [NSNull null]) {
-            userInfo.facebookID = (NSString *) userIdentities[@(MPUserIdentityFacebook)];
-        }
-        
-        if ([userAttributes objectForKey: MPKitBlueshiftUserAttributesEducation] && [userAttributes objectForKey: MPKitBlueshiftUserAttributesEducation] != [NSNull null]) {
-            userInfo.education = (NSString *)[userAttributes objectForKey: MPKitBlueshiftUserAttributesEducation];
-        }
-        
-        NSMutableDictionary *additionalInformation = [NSMutableDictionary dictionary];
-        if ([userAttributes objectForKey: mParticleUserAttributeAge] && [userAttributes objectForKey: mParticleUserAttributeAge] != [NSNull null]) {
-            [additionalInformation setObject: [userAttributes objectForKey: mParticleUserAttributeAge] forKey: MPKitBlueshiftUserAttributesAge];
-        }
-        
-        if ([userAttributes objectForKey: mParticleUserAttributeAddress] && [userAttributes objectForKey:mParticleUserAttributeAddress] != [NSNull null]) {
-            [additionalInformation setObject:[userAttributes objectForKey:mParticleUserAttributeAddress] forKey: MPKitBlueshiftUserAttributesAddress];
-        }
-        
-        if ([userAttributes objectForKey: mParticleUserAttributeMobileNumber] && [userAttributes objectForKey: mParticleUserAttributeMobileNumber] != [NSNull null]) {
-            [additionalInformation setObject:[userAttributes objectForKey: mParticleUserAttributeMobileNumber] forKey: MPKitBlueshiftUserAttributesMobile];
-        }
-        
-        if ([userAttributes objectForKey: mParticleUserAttributeCity] && [userAttributes objectForKey: mParticleUserAttributeCity] != [NSNull null]) {
-            [additionalInformation setObject: [userAttributes objectForKey: mParticleUserAttributeCity] forKey: MPKitBlueshiftUserAttributesCity];
-        }
-    
-        if ([userAttributes objectForKey: mParticleUserAttributeState] && [userAttributes objectForKey: mParticleUserAttributeState] != [NSNull null]) {
-            [additionalInformation setObject: [userAttributes objectForKey: mParticleUserAttributeState] forKey: MPKitBlueshiftUserAttributesState];
-        }
-        
-        if ([userAttributes objectForKey: mParticleUserAttributeZip] && [userAttributes objectForKey: mParticleUserAttributeZip] != [NSNull null]) {
-            [additionalInformation setObject: [userAttributes objectForKey: mParticleUserAttributeZip] forKey: MPKitBlueshiftUserAttributesZipCode];
-        }
-        
-        if ([userAttributes objectForKey: mParticleUserAttributeCountry] && [userAttributes objectForKey: mParticleUserAttributeCountry] != [NSNull null]) {
-            [additionalInformation setObject: [userAttributes objectForKey: mParticleUserAttributeCountry] forKey: MPKitBlueshiftUserAttributesCountry];
-        }
-        
-        if (additionalInformation) {
-            userInfo.additionalUserInfo = additionalInformation;
-        }
-        
-        
+
         [userInfo save];
 
         if (userInfo.email) {
