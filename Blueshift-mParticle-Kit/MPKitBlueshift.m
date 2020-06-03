@@ -63,6 +63,10 @@ static BlueShiftConfig *blueshiftConfig = nil;
     [[BlueShift sharedInstance] displayInAppNotification];
 }
 
++ (BOOL)isBlueshiftUniversalLinkURL:(NSURL *)URL {
+    return [[BlueShift sharedInstance] isBlueshiftUniversalLinkURL:URL];
+}
+
 + (void)handleBlueshiftUniversalLinksForURL:(NSURL *)URL {
     [[[BlueShift sharedInstance] appDelegate] handleBlueshiftUniversalLinksForURL:URL];
 }
