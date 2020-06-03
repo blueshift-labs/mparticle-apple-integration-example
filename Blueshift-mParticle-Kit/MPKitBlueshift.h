@@ -35,6 +35,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)fetchInAppNotificationFromAPI:(void (^_Nonnull)(void))success failure:(void (^)(NSError*))failure;
 + (void)displayInAppNotification;
 + (void)handleBlueshiftUniversalLinksForURL:(NSURL *)URL;
++ (BOOL)isBlueshiftUniversalLinkURL:(NSURL *)URL;
 
 @end
 
