@@ -1,0 +1,851 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 51;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		07E6CEA631C3CE361438F37D /* libPods-Blueshift-iOS-MParticle-SampleApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EF0AB36B2F399AE3CE78DB95 /* libPods-Blueshift-iOS-MParticle-SampleApp.a */; };
+		0840DBC4244B3153004B9FA3 /* NotificationService.m in Sources */ = {isa = PBXBuildFile; fileRef = 0840DBC3244B3153004B9FA3 /* NotificationService.m */; };
+		0840DBC8244B3153004B9FA3 /* NotificationSer.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 0840DBC0244B3153004B9FA3 /* NotificationSer.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		0840DBD2244B352E004B9FA3 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0840DBD1244B352E004B9FA3 /* UserNotifications.framework */; };
+		0840DBD4244B352E004B9FA3 /* UserNotificationsUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0840DBD3244B352E004B9FA3 /* UserNotificationsUI.framework */; };
+		0840DBD8244B352F004B9FA3 /* NotificationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0840DBD7244B352F004B9FA3 /* NotificationViewController.m */; };
+		0840DBDB244B352F004B9FA3 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0840DBD9244B352F004B9FA3 /* MainInterface.storyboard */; };
+		0840DBDF244B352F004B9FA3 /* NotificationContentService.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 0840DBD0244B352E004B9FA3 /* NotificationContentService.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		084A5A182444E00600E401F7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 084A5A172444E00600E401F7 /* AppDelegate.m */; };
+		084A5A1E2444E00600E401F7 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 084A5A1D2444E00600E401F7 /* ViewController.m */; };
+		084A5A212444E00600E401F7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 084A5A1F2444E00600E401F7 /* Main.storyboard */; };
+		084A5A242444E00600E401F7 /* Blueshift_iOS_MParticle_SampleApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 084A5A222444E00600E401F7 /* Blueshift_iOS_MParticle_SampleApp.xcdatamodeld */; };
+		084A5A262444E00B00E401F7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 084A5A252444E00B00E401F7 /* Assets.xcassets */; };
+		084A5A292444E00B00E401F7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 084A5A272444E00B00E401F7 /* LaunchScreen.storyboard */; };
+		084A5A2C2444E00B00E401F7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 084A5A2B2444E00B00E401F7 /* main.m */; };
+		084EAF31244EECDB00ABBE71 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 084EAF30244EECDB00ABBE71 /* HomeViewController.m */; };
+		63CE53D06E8D545AA9E7230C /* libPods-NotificationContentService.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A5CB15B92A2F6252CDE4E592 /* libPods-NotificationContentService.a */; };
+		A779D311F188FE59375E7D98 /* libPods-NotificationSer.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F1578A78F4897CA646FD90E /* libPods-NotificationSer.a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		0840DBC6244B3153004B9FA3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 084A5A0B2444E00600E401F7 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0840DBBF244B3153004B9FA3;
+			remoteInfo = NotificationSer;
+		};
+		0840DBDD244B352F004B9FA3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 084A5A0B2444E00600E401F7 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0840DBCF244B352E004B9FA3;
+			remoteInfo = NotificationContentService;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		089D9822244573EE0064BB68 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				0840DBDF244B352F004B9FA3 /* NotificationContentService.appex in Embed App Extensions */,
+				0840DBC8244B3153004B9FA3 /* NotificationSer.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		0840DBC0244B3153004B9FA3 /* NotificationSer.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NotificationSer.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		0840DBC2244B3153004B9FA3 /* NotificationService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NotificationService.h; sourceTree = "<group>"; };
+		0840DBC3244B3153004B9FA3 /* NotificationService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NotificationService.m; sourceTree = "<group>"; };
+		0840DBC5244B3153004B9FA3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0840DBD0244B352E004B9FA3 /* NotificationContentService.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NotificationContentService.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		0840DBD1244B352E004B9FA3 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
+		0840DBD3244B352E004B9FA3 /* UserNotificationsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotificationsUI.framework; path = System/Library/Frameworks/UserNotificationsUI.framework; sourceTree = SDKROOT; };
+		0840DBD6244B352F004B9FA3 /* NotificationViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NotificationViewController.h; sourceTree = "<group>"; };
+		0840DBD7244B352F004B9FA3 /* NotificationViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NotificationViewController.m; sourceTree = "<group>"; };
+		0840DBDA244B352F004B9FA3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
+		0840DBDC244B352F004B9FA3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		084569DF244C42E70042E7BC /* NotificationSer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NotificationSer.entitlements; sourceTree = "<group>"; };
+		084569E0244C42EF0042E7BC /* NotificationContentService.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NotificationContentService.entitlements; sourceTree = "<group>"; };
+		084A5A132444E00600E401F7 /* Blueshift-iOS-MParticle-SampleApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Blueshift-iOS-MParticle-SampleApp.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		084A5A162444E00600E401F7 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		084A5A172444E00600E401F7 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		084A5A1C2444E00600E401F7 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		084A5A1D2444E00600E401F7 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		084A5A202444E00600E401F7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		084A5A232444E00600E401F7 /* Blueshift_iOS_MParticle_SampleApp.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Blueshift_iOS_MParticle_SampleApp.xcdatamodel; sourceTree = "<group>"; };
+		084A5A252444E00B00E401F7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		084A5A282444E00B00E401F7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		084A5A2A2444E00B00E401F7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		084A5A2B2444E00B00E401F7 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		084A5A322444E1C700E401F7 /* Blueshift-iOS-MParticle-SampleApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Blueshift-iOS-MParticle-SampleApp.entitlements"; sourceTree = "<group>"; };
+		084EAF2F244EECDB00ABBE71 /* HomeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
+		084EAF30244EECDB00ABBE71 /* HomeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
+		2EA2B531BF9C4A392EC0212D /* Pods-BlueshiftPushService.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BlueshiftPushService.debug.xcconfig"; path = "Target Support Files/Pods-BlueshiftPushService/Pods-BlueshiftPushService.debug.xcconfig"; sourceTree = "<group>"; };
+		3108D20B53E97E221031E85F /* Pods-NotificationSer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotificationSer.release.xcconfig"; path = "Target Support Files/Pods-NotificationSer/Pods-NotificationSer.release.xcconfig"; sourceTree = "<group>"; };
+		6F1578A78F4897CA646FD90E /* libPods-NotificationSer.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NotificationSer.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		751689ED0B319200BE0DDBEA /* Pods-Blueshift-iOS-MParticle-SampleApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Blueshift-iOS-MParticle-SampleApp.debug.xcconfig"; path = "Target Support Files/Pods-Blueshift-iOS-MParticle-SampleApp/Pods-Blueshift-iOS-MParticle-SampleApp.debug.xcconfig"; sourceTree = "<group>"; };
+		A028656675930219F27DE8BD /* Pods_BlueshiftPushService.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BlueshiftPushService.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A5CB15B92A2F6252CDE4E592 /* libPods-NotificationContentService.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NotificationContentService.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A824BE460B07FC9510BFEB4D /* Pods-Blueshift-iOS-MParticle-SampleApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Blueshift-iOS-MParticle-SampleApp.release.xcconfig"; path = "Target Support Files/Pods-Blueshift-iOS-MParticle-SampleApp/Pods-Blueshift-iOS-MParticle-SampleApp.release.xcconfig"; sourceTree = "<group>"; };
+		A93CD37CAEC3C8F5DC14BF18 /* Pods-NotificationSer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotificationSer.debug.xcconfig"; path = "Target Support Files/Pods-NotificationSer/Pods-NotificationSer.debug.xcconfig"; sourceTree = "<group>"; };
+		B62C227EA6F6C44019333DFA /* Pods-BlueshiftPushService.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BlueshiftPushService.release.xcconfig"; path = "Target Support Files/Pods-BlueshiftPushService/Pods-BlueshiftPushService.release.xcconfig"; sourceTree = "<group>"; };
+		D3F5162BFC92FA18C371C9BA /* Pods-NotificationContentService.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotificationContentService.debug.xcconfig"; path = "Target Support Files/Pods-NotificationContentService/Pods-NotificationContentService.debug.xcconfig"; sourceTree = "<group>"; };
+		DEE9114CA62BCCF1D0264D7A /* Pods-NotificationContentService.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotificationContentService.release.xcconfig"; path = "Target Support Files/Pods-NotificationContentService/Pods-NotificationContentService.release.xcconfig"; sourceTree = "<group>"; };
+		EF0AB36B2F399AE3CE78DB95 /* libPods-Blueshift-iOS-MParticle-SampleApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Blueshift-iOS-MParticle-SampleApp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		0840DBBD244B3153004B9FA3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A779D311F188FE59375E7D98 /* libPods-NotificationSer.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0840DBCD244B352E004B9FA3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0840DBD4244B352E004B9FA3 /* UserNotificationsUI.framework in Frameworks */,
+				0840DBD2244B352E004B9FA3 /* UserNotifications.framework in Frameworks */,
+				63CE53D06E8D545AA9E7230C /* libPods-NotificationContentService.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		084A5A102444E00600E401F7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				07E6CEA631C3CE361438F37D /* libPods-Blueshift-iOS-MParticle-SampleApp.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		0840DBC1244B3153004B9FA3 /* NotificationSer */ = {
+			isa = PBXGroup;
+			children = (
+				084569DF244C42E70042E7BC /* NotificationSer.entitlements */,
+				0840DBC2244B3153004B9FA3 /* NotificationService.h */,
+				0840DBC3244B3153004B9FA3 /* NotificationService.m */,
+				0840DBC5244B3153004B9FA3 /* Info.plist */,
+			);
+			path = NotificationSer;
+			sourceTree = "<group>";
+		};
+		0840DBD5244B352F004B9FA3 /* NotificationContentService */ = {
+			isa = PBXGroup;
+			children = (
+				084569E0244C42EF0042E7BC /* NotificationContentService.entitlements */,
+				0840DBD6244B352F004B9FA3 /* NotificationViewController.h */,
+				0840DBD7244B352F004B9FA3 /* NotificationViewController.m */,
+				0840DBD9244B352F004B9FA3 /* MainInterface.storyboard */,
+				0840DBDC244B352F004B9FA3 /* Info.plist */,
+			);
+			path = NotificationContentService;
+			sourceTree = "<group>";
+		};
+		084A5A0A2444E00600E401F7 = {
+			isa = PBXGroup;
+			children = (
+				084A5A152444E00600E401F7 /* Blueshift-iOS-MParticle-SampleApp */,
+				0840DBC1244B3153004B9FA3 /* NotificationSer */,
+				0840DBD5244B352F004B9FA3 /* NotificationContentService */,
+				084A5A142444E00600E401F7 /* Products */,
+				97AE55938A3FB4DC7F6B7F97 /* Pods */,
+				978DE78A9F969E1FB10310EB /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		084A5A142444E00600E401F7 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				084A5A132444E00600E401F7 /* Blueshift-iOS-MParticle-SampleApp.app */,
+				0840DBC0244B3153004B9FA3 /* NotificationSer.appex */,
+				0840DBD0244B352E004B9FA3 /* NotificationContentService.appex */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		084A5A152444E00600E401F7 /* Blueshift-iOS-MParticle-SampleApp */ = {
+			isa = PBXGroup;
+			children = (
+				084A5A322444E1C700E401F7 /* Blueshift-iOS-MParticle-SampleApp.entitlements */,
+				084A5A162444E00600E401F7 /* AppDelegate.h */,
+				084A5A172444E00600E401F7 /* AppDelegate.m */,
+				084A5A1C2444E00600E401F7 /* ViewController.h */,
+				084A5A1D2444E00600E401F7 /* ViewController.m */,
+				084A5A1F2444E00600E401F7 /* Main.storyboard */,
+				084A5A252444E00B00E401F7 /* Assets.xcassets */,
+				084A5A272444E00B00E401F7 /* LaunchScreen.storyboard */,
+				084A5A2A2444E00B00E401F7 /* Info.plist */,
+				084A5A2B2444E00B00E401F7 /* main.m */,
+				084A5A222444E00600E401F7 /* Blueshift_iOS_MParticle_SampleApp.xcdatamodeld */,
+				084EAF2F244EECDB00ABBE71 /* HomeViewController.h */,
+				084EAF30244EECDB00ABBE71 /* HomeViewController.m */,
+			);
+			path = "Blueshift-iOS-MParticle-SampleApp";
+			sourceTree = "<group>";
+		};
+		978DE78A9F969E1FB10310EB /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A028656675930219F27DE8BD /* Pods_BlueshiftPushService.framework */,
+				0840DBD1244B352E004B9FA3 /* UserNotifications.framework */,
+				0840DBD3244B352E004B9FA3 /* UserNotificationsUI.framework */,
+				EF0AB36B2F399AE3CE78DB95 /* libPods-Blueshift-iOS-MParticle-SampleApp.a */,
+				A5CB15B92A2F6252CDE4E592 /* libPods-NotificationContentService.a */,
+				6F1578A78F4897CA646FD90E /* libPods-NotificationSer.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		97AE55938A3FB4DC7F6B7F97 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				751689ED0B319200BE0DDBEA /* Pods-Blueshift-iOS-MParticle-SampleApp.debug.xcconfig */,
+				A824BE460B07FC9510BFEB4D /* Pods-Blueshift-iOS-MParticle-SampleApp.release.xcconfig */,
+				2EA2B531BF9C4A392EC0212D /* Pods-BlueshiftPushService.debug.xcconfig */,
+				B62C227EA6F6C44019333DFA /* Pods-BlueshiftPushService.release.xcconfig */,
+				A93CD37CAEC3C8F5DC14BF18 /* Pods-NotificationSer.debug.xcconfig */,
+				3108D20B53E97E221031E85F /* Pods-NotificationSer.release.xcconfig */,
+				D3F5162BFC92FA18C371C9BA /* Pods-NotificationContentService.debug.xcconfig */,
+				DEE9114CA62BCCF1D0264D7A /* Pods-NotificationContentService.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		0840DBBF244B3153004B9FA3 /* NotificationSer */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0840DBC9244B3153004B9FA3 /* Build configuration list for PBXNativeTarget "NotificationSer" */;
+			buildPhases = (
+				AC4330D1B2BA598305019A03 /* [CP] Check Pods Manifest.lock */,
+				0840DBBC244B3153004B9FA3 /* Sources */,
+				0840DBBD244B3153004B9FA3 /* Frameworks */,
+				0840DBBE244B3153004B9FA3 /* Resources */,
+				3F706AAD446BD2B749E46333 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = NotificationSer;
+			productName = NotificationSer;
+			productReference = 0840DBC0244B3153004B9FA3 /* NotificationSer.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		0840DBCF244B352E004B9FA3 /* NotificationContentService */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0840DBE2244B352F004B9FA3 /* Build configuration list for PBXNativeTarget "NotificationContentService" */;
+			buildPhases = (
+				3CCB72034A37FAB85B85F20E /* [CP] Check Pods Manifest.lock */,
+				0840DBCC244B352E004B9FA3 /* Sources */,
+				0840DBCD244B352E004B9FA3 /* Frameworks */,
+				0840DBCE244B352E004B9FA3 /* Resources */,
+				C3D5348E518717355A86D910 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = NotificationContentService;
+			productName = NotificationContentService;
+			productReference = 0840DBD0244B352E004B9FA3 /* NotificationContentService.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		084A5A122444E00600E401F7 /* Blueshift-iOS-MParticle-SampleApp */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 084A5A2F2444E00B00E401F7 /* Build configuration list for PBXNativeTarget "Blueshift-iOS-MParticle-SampleApp" */;
+			buildPhases = (
+				DC160E5A797C8320ED14A2E2 /* [CP] Check Pods Manifest.lock */,
+				084A5A0F2444E00600E401F7 /* Sources */,
+				084A5A102444E00600E401F7 /* Frameworks */,
+				084A5A112444E00600E401F7 /* Resources */,
+				089D9822244573EE0064BB68 /* Embed App Extensions */,
+				7949A73ED78A37B66D727217 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				0840DBC7244B3153004B9FA3 /* PBXTargetDependency */,
+				0840DBDE244B352F004B9FA3 /* PBXTargetDependency */,
+			);
+			name = "Blueshift-iOS-MParticle-SampleApp";
+			productName = "Blueshift-iOS-MParticle-SampleApp";
+			productReference = 084A5A132444E00600E401F7 /* Blueshift-iOS-MParticle-SampleApp.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		084A5A0B2444E00600E401F7 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 1130;
+				ORGANIZATIONNAME = Noufal;
+				TargetAttributes = {
+					0840DBBF244B3153004B9FA3 = {
+						CreatedOnToolsVersion = 11.3.1;
+					};
+					0840DBCF244B352E004B9FA3 = {
+						CreatedOnToolsVersion = 11.3.1;
+					};
+					084A5A122444E00600E401F7 = {
+						CreatedOnToolsVersion = 11.3.1;
+					};
+				};
+			};
+			buildConfigurationList = 084A5A0E2444E00600E401F7 /* Build configuration list for PBXProject "Blueshift-iOS-MParticle-SampleApp" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 084A5A0A2444E00600E401F7;
+			productRefGroup = 084A5A142444E00600E401F7 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				084A5A122444E00600E401F7 /* Blueshift-iOS-MParticle-SampleApp */,
+				0840DBBF244B3153004B9FA3 /* NotificationSer */,
+				0840DBCF244B352E004B9FA3 /* NotificationContentService */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		0840DBBE244B3153004B9FA3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0840DBCE244B352E004B9FA3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0840DBDB244B352F004B9FA3 /* MainInterface.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		084A5A112444E00600E401F7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				084A5A292444E00B00E401F7 /* LaunchScreen.storyboard in Resources */,
+				084A5A262444E00B00E401F7 /* Assets.xcassets in Resources */,
+				084A5A212444E00600E401F7 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		3CCB72034A37FAB85B85F20E /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-NotificationContentService-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		3F706AAD446BD2B749E46333 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-NotificationSer/Pods-NotificationSer-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-NotificationSer/Pods-NotificationSer-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-NotificationSer/Pods-NotificationSer-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7949A73ED78A37B66D727217 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Blueshift-iOS-MParticle-SampleApp/Pods-Blueshift-iOS-MParticle-SampleApp-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Blueshift-iOS-MParticle-SampleApp/Pods-Blueshift-iOS-MParticle-SampleApp-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Blueshift-iOS-MParticle-SampleApp/Pods-Blueshift-iOS-MParticle-SampleApp-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		AC4330D1B2BA598305019A03 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-NotificationSer-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C3D5348E518717355A86D910 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-NotificationContentService/Pods-NotificationContentService-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-NotificationContentService/Pods-NotificationContentService-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-NotificationContentService/Pods-NotificationContentService-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		DC160E5A797C8320ED14A2E2 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Blueshift-iOS-MParticle-SampleApp-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		0840DBBC244B3153004B9FA3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0840DBC4244B3153004B9FA3 /* NotificationService.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0840DBCC244B352E004B9FA3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0840DBD8244B352F004B9FA3 /* NotificationViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		084A5A0F2444E00600E401F7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				084A5A2C2444E00B00E401F7 /* main.m in Sources */,
+				084A5A242444E00600E401F7 /* Blueshift_iOS_MParticle_SampleApp.xcdatamodeld in Sources */,
+				084A5A1E2444E00600E401F7 /* ViewController.m in Sources */,
+				084EAF31244EECDB00ABBE71 /* HomeViewController.m in Sources */,
+				084A5A182444E00600E401F7 /* AppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		0840DBC7244B3153004B9FA3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0840DBBF244B3153004B9FA3 /* NotificationSer */;
+			targetProxy = 0840DBC6244B3153004B9FA3 /* PBXContainerItemProxy */;
+		};
+		0840DBDE244B352F004B9FA3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0840DBCF244B352E004B9FA3 /* NotificationContentService */;
+			targetProxy = 0840DBDD244B352F004B9FA3 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		0840DBD9244B352F004B9FA3 /* MainInterface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0840DBDA244B352F004B9FA3 /* Base */,
+			);
+			name = MainInterface.storyboard;
+			sourceTree = "<group>";
+		};
+		084A5A1F2444E00600E401F7 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				084A5A202444E00600E401F7 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		084A5A272444E00B00E401F7 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				084A5A282444E00B00E401F7 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		0840DBCA244B3153004B9FA3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A93CD37CAEC3C8F5DC14BF18 /* Pods-NotificationSer.debug.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = NotificationSer/NotificationSer.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 9YR8UTRCDU;
+				INFOPLIST_FILE = NotificationSer/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.blueshift.reads.notificationService;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		0840DBCB244B3153004B9FA3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3108D20B53E97E221031E85F /* Pods-NotificationSer.release.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = NotificationSer/NotificationSer.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 9YR8UTRCDU;
+				INFOPLIST_FILE = NotificationSer/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.blueshift.reads.notificationService;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		0840DBE0244B352F004B9FA3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D3F5162BFC92FA18C371C9BA /* Pods-NotificationContentService.debug.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = NotificationContentService/NotificationContentService.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 9YR8UTRCDU;
+				INFOPLIST_FILE = NotificationContentService/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.blueshift.reads.notificationContent;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		0840DBE1244B352F004B9FA3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = DEE9114CA62BCCF1D0264D7A /* Pods-NotificationContentService.release.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = NotificationContentService/NotificationContentService.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 9YR8UTRCDU;
+				INFOPLIST_FILE = NotificationContentService/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.blueshift.reads.notificationContent;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		084A5A2D2444E00B00E401F7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		084A5A2E2444E00B00E401F7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		084A5A302444E00B00E401F7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 751689ED0B319200BE0DDBEA /* Pods-Blueshift-iOS-MParticle-SampleApp.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "Blueshift-iOS-MParticle-SampleApp/Blueshift-iOS-MParticle-SampleApp.entitlements";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 9YR8UTRCDU;
+				INFOPLIST_FILE = "Blueshift-iOS-MParticle-SampleApp/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.blueshift.reads;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		084A5A312444E00B00E401F7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A824BE460B07FC9510BFEB4D /* Pods-Blueshift-iOS-MParticle-SampleApp.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "Blueshift-iOS-MParticle-SampleApp/Blueshift-iOS-MParticle-SampleApp.entitlements";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 9YR8UTRCDU;
+				INFOPLIST_FILE = "Blueshift-iOS-MParticle-SampleApp/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.blueshift.reads;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		0840DBC9244B3153004B9FA3 /* Build configuration list for PBXNativeTarget "NotificationSer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0840DBCA244B3153004B9FA3 /* Debug */,
+				0840DBCB244B3153004B9FA3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0840DBE2244B352F004B9FA3 /* Build configuration list for PBXNativeTarget "NotificationContentService" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0840DBE0244B352F004B9FA3 /* Debug */,
+				0840DBE1244B352F004B9FA3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		084A5A0E2444E00600E401F7 /* Build configuration list for PBXProject "Blueshift-iOS-MParticle-SampleApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				084A5A2D2444E00B00E401F7 /* Debug */,
+				084A5A2E2444E00B00E401F7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		084A5A2F2444E00B00E401F7 /* Build configuration list for PBXNativeTarget "Blueshift-iOS-MParticle-SampleApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				084A5A302444E00B00E401F7 /* Debug */,
+				084A5A312444E00B00E401F7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		084A5A222444E00600E401F7 /* Blueshift_iOS_MParticle_SampleApp.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				084A5A232444E00600E401F7 /* Blueshift_iOS_MParticle_SampleApp.xcdatamodel */,
+			);
+			currentVersion = 084A5A232444E00600E401F7 /* Blueshift_iOS_MParticle_SampleApp.xcdatamodel */;
+			path = Blueshift_iOS_MParticle_SampleApp.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = 084A5A0B2444E00600E401F7 /* Project object */;
+}
