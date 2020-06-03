@@ -63,10 +63,8 @@ static BlueShiftConfig *blueshiftConfig = nil;
     [[BlueShift sharedInstance] displayInAppNotification];
 }
 
-+ (void)handleBlueshiftLink:(NSURL *)URL handler:(void (^)(NSURL *))handler {
-    [[BlueShift sharedInstance] handleBlueshiftLink: URL handler:^(NSURL *URL) {
-        handler(URL);
-    }];
++ (void)handleBlueshiftUniversalLinksForURL:(NSURL *)URL {
+    [[[BlueShift sharedInstance] appDelegate] handleBlueshiftUniversalLinksForURL:URL];
 }
 
 + (void)setBlueshiftConfig:(BlueShiftConfig *)config {
