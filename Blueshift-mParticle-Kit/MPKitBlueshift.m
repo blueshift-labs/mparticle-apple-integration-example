@@ -20,9 +20,18 @@ NSString *const MPKitBlueshiftUserAttributesState = @"state";
 NSString *const MPKitBlueshiftUserAttributesZipCode = @"zip_code";
 NSString *const MPKitBlueshiftUserAttributesCountry = @"country";
 
+NSString *const MPKitBlueshiftShouldLogMPEvents = @"blueshift_should_log_mp_events";
+NSString *const MPKitBlueshiftShouldLogCommerceEvents = @"blueshift_should_log_commerce_events";
+NSString *const MPKitBlueshiftShouldLogUserEvents = @"blueshift_should_log_user_events";
+NSString *const MPKitBlueshiftShouldLogScreenViewEvents = @"blueshift_should_log_screen_view_events";
+
 NSString *const BSFT_MESSAGE_UUID =@"bsft_message_uuid";
 
 static BlueShiftConfig *blueshiftConfig = nil;
+static BOOL shouldLogMPEvents = NO;
+static BOOL shouldLogCommerceEvents= NO;
+static BOOL shouldLogScreenViewEvents = NO;
+static BOOL shouldLogUserEvents = YES;
 
 @implementation MPKitBlueshift
 
@@ -83,7 +92,16 @@ static BlueShiftConfig *blueshiftConfig = nil;
     if ([configuration objectForKey: BlueshiftEventApiKey] == nil) {
         return [self execStatus:MPKitReturnCodeRequirementsNotMet];
     }
+    shouldLogMPEvents = [self getSettingValueFrom:configuration defaultValue:NO forKey:MPKitBlueshiftShouldLogMPEvents];
+    shouldLogCommerceEvents = [self getSettingValueFrom:configuration defaultValue:NO forKey:MPKitBlueshiftShouldLogCommerceEvents];
+    shouldLogScreenViewEvents = [self getSettingValueFrom:configuration defaultValue:NO forKey:MPKitBlueshiftShouldLogScreenViewEvents];
+    shouldLogUserEvents = [self getSettingValueFrom:configuration defaultValue:NO forKey:MPKitBlueshiftShouldLogUserEvents];
 
+    [self logConfigurationDetailsForEvent:@"MP" status:shouldLogMPEvents key:MPKitBlueshiftShouldLogMPEvents];
+    [self logConfigurationDetailsForEvent:@"Commerce" status:shouldLogCommerceEvents key:MPKitBlueshiftShouldLogCommerceEvents];
+    [self logConfigurationDetailsForEvent:@"Identify" status:shouldLogUserEvents key:MPKitBlueshiftShouldLogUserEvents];
+    [self logConfigurationDetailsForEvent:@"ScreenView" status:shouldLogScreenViewEvents key:MPKitBlueshiftShouldLogScreenViewEvents];
+    
     _configuration = configuration;
 
    if ([BlueShift sharedInstance]) {
@@ -188,38 +206,40 @@ static BlueShiftConfig *blueshiftConfig = nil;
 }
 
 - (MPKitExecStatus *)routeEvent:(MPEvent *)event {
-    [[BlueShift sharedInstance] trackEventForEventName: event.name andParameters: event.customAttributes canBatchThisEvent: NO];
-    
+    if (shouldLogMPEvents) {
+        [[BlueShift sharedInstance] trackEventForEventName: event.name andParameters: event.customAttributes canBatchThisEvent: NO];
+    }
     return [self execStatus:MPKitReturnCodeSuccess];
 }
 
 - (MPKitExecStatus *)routeCommerceEvent:(MPCommerceEvent *)commerceEvent {
     MPKitExecStatus *execStatus = [[MPKitExecStatus alloc] initWithSDKCode:@(MPKitInstanceBlueshift) returnCode:MPKitReturnCodeSuccess forwardCount:0];
-    
-    if (commerceEvent.action == MPCommerceEventActionPurchase) {
-        [[BlueShift sharedInstance] trackEventForEventName: kEventPurchase andParameters: commerceEvent.customAttributes canBatchThisEvent: NO];
-    } else {
-        NSArray *expandedInstructions = [commerceEvent expandedInstructions];
-        
-        for (MPCommerceEventInstruction *commerceEventInstruction in expandedInstructions) {
-            [self logBaseEvent:commerceEventInstruction.event];
-            [execStatus incrementForwardCount];
+    if (shouldLogCommerceEvents) {
+        if (commerceEvent.action == MPCommerceEventActionPurchase) {
+            [[BlueShift sharedInstance] trackEventForEventName: kEventPurchase andParameters: commerceEvent.customAttributes canBatchThisEvent: NO];
+        } else {
+            NSArray *expandedInstructions = [commerceEvent expandedInstructions];
+            
+            for (MPCommerceEventInstruction *commerceEventInstruction in expandedInstructions) {
+                [self logBaseEvent:commerceEventInstruction.event];
+                [execStatus incrementForwardCount];
+            }
         }
     }
-    
     return execStatus;
 }
 
 - (MPKitExecStatus *)logScreen:(MPEvent *)event {
-    NSMutableDictionary *customAttributes = [NSMutableDictionary dictionary];
-    [customAttributes setObject:event.name forKey: MPKitBlueshiftScreenViewed];
+    if (shouldLogScreenViewEvents) {
+        NSMutableDictionary *customAttributes = [NSMutableDictionary dictionary];
+        [customAttributes setObject:event.name forKey: MPKitBlueshiftScreenViewed];
         
-    if (event.customAttributes) {
-        [customAttributes addEntriesFromDictionary: event.customAttributes];
+        if (event.customAttributes) {
+            [customAttributes addEntriesFromDictionary: event.customAttributes];
+        }
+        
+        [[BlueShift sharedInstance] trackEventForEventName:kEventPageLoad andParameters: customAttributes canBatchThisEvent:NO];
     }
-    
-    [[BlueShift sharedInstance] trackEventForEventName:kEventPageLoad andParameters: customAttributes canBatchThisEvent:NO];
-
     return [self execStatus:MPKitReturnCodeSuccess];
 }
 
@@ -237,8 +257,8 @@ static BlueShiftConfig *blueshiftConfig = nil;
         }
 
         [userInfo save];
-
-        if (userInfo.email) {
+        
+        if (userInfo.email && shouldLogUserEvents) {
             [[BlueShift sharedInstance] identifyUserWithEmail:userInfo.email andDetails:@{} canBatchThisEvent:NO];
         }
     }
@@ -253,6 +273,30 @@ static BlueShiftConfig *blueshiftConfig = nil;
     }
     
     return userinfo && [userinfo objectForKey: BSFT_MESSAGE_UUID];
+}
+
+
+- (BOOL)getSettingValueFrom:(NSDictionary *)configuration defaultValue:(BOOL)defaultValue forKey:(NSString *) key {
+    if (configuration != nil && configuration[key] != nil) {
+        @try {
+            NSString* value = configuration[key];
+            return [value boolValue];
+        }@catch (NSException *exception) {
+            [self debugLog:exception.description];
+        }
+    }
+    return defaultValue;
+}
+
+-(void)debugLog:(NSString *) errorString{
+    #ifdef DEBUG
+    NSLog(@"[Blueshift MPKIT] - %@", errorString);
+    #endif
+}
+
+-(void)logConfigurationDetailsForEvent: (NSString*)eventName status: (BOOL)status key: (NSString*)key {
+    NSString* logDescription = [NSString stringWithFormat: @"Sending \"%@ Events\" directly to Blueshift %@ To Enable, set \"%@=true\" in settings.",eventName, (status ? @"enabled." : @"disabled!"), key];
+    [self debugLog:logDescription];
 }
 
 @end
