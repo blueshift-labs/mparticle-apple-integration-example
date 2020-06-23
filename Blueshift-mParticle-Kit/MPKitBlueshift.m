@@ -95,7 +95,7 @@ static BOOL shouldLogUserEvents = YES;
     shouldLogMPEvents = [self getSettingValueFrom:configuration defaultValue:NO forKey:MPKitBlueshiftShouldLogMPEvents];
     shouldLogCommerceEvents = [self getSettingValueFrom:configuration defaultValue:NO forKey:MPKitBlueshiftShouldLogCommerceEvents];
     shouldLogScreenViewEvents = [self getSettingValueFrom:configuration defaultValue:NO forKey:MPKitBlueshiftShouldLogScreenViewEvents];
-    shouldLogUserEvents = [self getSettingValueFrom:configuration defaultValue:NO forKey:MPKitBlueshiftShouldLogUserEvents];
+    shouldLogUserEvents = [self getSettingValueFrom:configuration defaultValue:YES forKey:MPKitBlueshiftShouldLogUserEvents];
 
     [self logConfigurationDetailsForEvent:@"MP" status:shouldLogMPEvents key:MPKitBlueshiftShouldLogMPEvents];
     [self logConfigurationDetailsForEvent:@"Commerce" status:shouldLogCommerceEvents key:MPKitBlueshiftShouldLogCommerceEvents];
@@ -274,7 +274,6 @@ static BOOL shouldLogUserEvents = YES;
     
     return userinfo && [userinfo objectForKey: BSFT_MESSAGE_UUID];
 }
-
 
 - (BOOL)getSettingValueFrom:(NSDictionary *)configuration defaultValue:(BOOL)defaultValue forKey:(NSString *) key {
     if (configuration != nil && configuration[key] != nil) {
