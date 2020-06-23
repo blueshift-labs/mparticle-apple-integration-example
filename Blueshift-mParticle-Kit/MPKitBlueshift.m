@@ -294,7 +294,8 @@ static BOOL shouldLogUserEvents = YES;
 }
 
 -(void)logConfigurationDetailsForEvent: (NSString*)eventName status: (BOOL)status key: (NSString*)key {
-    NSString* logDescription = [NSString stringWithFormat: @"Sending \"%@ Events\" directly to Blueshift %@ To Enable, set \"%@=true\" in settings.",eventName, (status ? @"enabled." : @"disabled!"), key];
+    NSString* disabledString = [NSString stringWithFormat:@"disabled! To Enable, set \"%@=true\" in settings.", key];
+    NSString* logDescription = [NSString stringWithFormat: @"Sending \"%@ Events\" directly to Blueshift %@ ",eventName, (status ? @"enabled." : disabledString)];
     [self debugLog:logDescription];
 }
 
