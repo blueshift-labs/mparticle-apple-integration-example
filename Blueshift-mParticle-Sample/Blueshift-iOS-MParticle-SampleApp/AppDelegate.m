@@ -31,8 +31,8 @@
     [config setBlueshiftUniversalLinksDelegate:self];
     [MPKitBlueshift setBlueshiftConfig: config];
         
-    MParticleOptions *options = [MParticleOptions optionsWithKey:@"us1-32dbbebfc1b5be4685aba401ec80b876"
-                                                              secret:@"ivj7Ts6TsRHGXaUiNCofam7RXR2DO0Jf_xLLwzx3nX45LtDbF2H8CIRTKZ43cXpw"];
+    MParticleOptions *options = [MParticleOptions optionsWithKey:@"YOUR MPARTICLE API KEY"
+                                                          secret:@"YOUR MPARTICLE API SECRET"];
         
     [[MParticle sharedInstance] startWithOptions:options];
         
