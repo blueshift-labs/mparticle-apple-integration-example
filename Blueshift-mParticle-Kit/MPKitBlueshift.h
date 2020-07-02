@@ -36,7 +36,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)displayInAppNotification;
 + (void)handleBlueshiftUniversalLinksForURL:(NSURL *)URL;
 + (BOOL)isBlueshiftUniversalLinkURL:(NSURL *)URL;
-+ (void)handleUserNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions options))completionHandler;
++ (void)handleUserNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions options))completionHandler API_AVAILABLE(ios(10.0));
 
 @end
 
