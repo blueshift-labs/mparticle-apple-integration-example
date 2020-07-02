@@ -32,7 +32,7 @@
     [MPKitBlueshift setBlueshiftConfig: config];
         
     MParticleOptions *options = [MParticleOptions optionsWithKey:@"YOUR MPARTICLE API KEY"
-                                                              secret:@"YOUR MPARTICLE API SECRET"];
+                                                          secret:@"YOUR MPARTICLE API SECRET"];
         
     [[MParticle sharedInstance] startWithOptions:options];
         
@@ -43,6 +43,12 @@
     NSLog(@"URL triggred");
     
     return YES;
+}
+
+- (void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions options))completionHandler{
+    [MPKitBlueshift handleUserNotificationCenter:center willPresentNotification:notification withCompletionHandler:^(UNNotificationPresentationOptions options){
+        completionHandler(options);
+    }];
 }
 
 - (BOOL)application:(UIApplication *)application continueUserActivity:(NSUserActivity *)userActivity restorationHandler:(void (^)(NSArray<id<UIUserActivityRestoring>> * _Nullable))restorationHandler {
