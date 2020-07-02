@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
   # s.name         = "Blueshift-mParticle-Kit"
   s.name         = "Blueshift-mParticle-Kit"
-  s.version      = "0.0.6"
+  s.version      = "0.0.7"
   s.summary      = "iOS SDK for integrating push notification and analytics"
 
   s.description  = <<-DESC
@@ -15,7 +15,7 @@ Pod::Spec.new do |s|
   s.homepage    = "https://github.com/blueshift-labs/mparticle-apple-integration-blueshift"
   s.license     = { :type => "MIT", :file => "LICENSE" }
   s.author      = { "Blueshift" => "success@getblueshift.com" }
-  s.source      = { :git => "https://github.com/blueshift-labs/mparticle-apple-integration-blueshift.git", :tag => "0.0.6" }
+  s.source      = { :git => "https://github.com/blueshift-labs/mparticle-apple-integration-blueshift.git", :tag => "0.0.7" }
   s.exclude_files         = "Classes/Exclude"
   s.ios.deployment_target = "9.0"
   s.ios.frameworks        = 'CoreTelephony', 'SystemConfiguration'
