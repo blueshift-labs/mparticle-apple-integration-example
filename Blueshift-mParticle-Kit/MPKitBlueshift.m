@@ -264,7 +264,7 @@ static BOOL shouldLogUserEvents = YES;
 
         [userInfo save];
         
-        if (userInfo.email && shouldLogUserEvents) {
+        if ((userInfo.email || userInfo.retailerCustomerID)  && shouldLogUserEvents) {
             [[BlueShift sharedInstance] identifyUserWithEmail:userInfo.email andDetails:@{} canBatchThisEvent:NO];
         }
     }
