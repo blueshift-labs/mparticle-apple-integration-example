@@ -18,6 +18,7 @@
 		0897C815241FA136000DBCB3 /* Blueshift_mParticle_Kit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Blueshift_mParticle_Kit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0897C818241FA136000DBCB3 /* Blueshift_mParticle_Kit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Blueshift_mParticle_Kit.h; sourceTree = "<group>"; };
 		0897C819241FA136000DBCB3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		916AC4BC24B4432B00E13B82 /* MPKitBlueshiftVersion.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MPKitBlueshiftVersion.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +55,7 @@
 				0897C819241FA136000DBCB3 /* Info.plist */,
 				085E9F13243F3BC2007F96DA /* MPKitBlueshift.h */,
 				085E9F14243F3BC2007F96DA /* MPKitBlueshift.m */,
+				916AC4BC24B4432B00E13B82 /* MPKitBlueshiftVersion.h */,
 			);
 			path = "Blueshift-mParticle-Kit";
 			sourceTree = "<group>";
