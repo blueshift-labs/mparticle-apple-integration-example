@@ -6,6 +6,7 @@
 //  Copyright © 2020 Noufal. All rights reserved.
 //
 #import "MPKitBlueshift.h"
+#import "MPKitBlueshiftVersion.h"
 
 NSString *const BlueshiftEventApiKey = @"eventApiKey";
 NSString *const MPKitBlueshiftUserAttributesDOB = @"date_of_birth";
@@ -26,6 +27,7 @@ NSString *const MPKitBlueshiftShouldLogUserEvents = @"blueshift_should_log_user_
 NSString *const MPKitBlueshiftShouldLogScreenViewEvents = @"blueshift_should_log_screen_view_events";
 
 NSString *const BSFT_MESSAGE_UUID =@"bsft_message_uuid";
+NSString *const BSFT_MPKIT_VERSION =@"bsft_mparticle_kit_version";
 
 static BlueShiftConfig *blueshiftConfig = nil;
 static BOOL shouldLogMPEvents = NO;
@@ -253,9 +255,10 @@ static BOOL shouldLogUserEvents = YES;
     if (user) {
         BlueShiftUserInfo *userInfo = [BlueShiftUserInfo sharedInstance];
         NSDictionary *userIdentities = [user.userIdentities copy];
-        
+
         if (userIdentities[@(MPUserIdentityCustomerId)] && userIdentities[@(MPUserIdentityCustomerId)] != [NSNull null]) {
             userInfo.retailerCustomerID = (NSString *) userIdentities[@(MPUserIdentityCustomerId)];
+            
         }
         
         if (userIdentities[@(MPUserIdentityEmail)] && userIdentities[@(MPUserIdentityEmail)] != [NSNull null]) {
@@ -264,8 +267,9 @@ static BOOL shouldLogUserEvents = YES;
 
         [userInfo save];
         
-        if ((userInfo.email || userInfo.retailerCustomerID)  && shouldLogUserEvents) {
-            [[BlueShift sharedInstance] identifyUserWithEmail:userInfo.email andDetails:@{} canBatchThisEvent:NO];
+        if (shouldLogUserEvents) {
+            NSDictionary* details = @{BSFT_MPKIT_VERSION: kMPKitBlueshiftVersion};
+            [[BlueShift sharedInstance] identifyUserWithDetails:details canBatchThisEvent:NO];
         }
     }
     
