@@ -258,7 +258,6 @@ static BOOL shouldLogUserEvents = YES;
 
         if (userIdentities[@(MPUserIdentityCustomerId)] && userIdentities[@(MPUserIdentityCustomerId)] != [NSNull null]) {
             userInfo.retailerCustomerID = (NSString *) userIdentities[@(MPUserIdentityCustomerId)];
-            
         }
         
         if (userIdentities[@(MPUserIdentityEmail)] && userIdentities[@(MPUserIdentityEmail)] != [NSNull null]) {
