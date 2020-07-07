@@ -9,6 +9,6 @@
 #ifndef MPKitBlueshiftVersion_h
 #define MPKitBlueshiftVersion_h
 
-#define kMPKitBlueshiftVersion  @"0.0.7"
+#define kMPKitBlueshiftVersion  @"0.0.8"
 
 #endif /* MPKitBlueshiftVersion_h */
